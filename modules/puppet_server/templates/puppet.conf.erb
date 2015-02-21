@@ -1,0 +1,20 @@
+##############################################################
+# DO NOT EDIT. MANAGED BY PUPPET. CHANGES WILL BE WIPED OUT. #
+##############################################################
+[main]
+logdir=/var/log/puppet
+vardir=/var/lib/puppet
+ssldir=/var/lib/puppet/ssl
+rundir=/var/run/puppet
+factpath=$vardir/lib/facter
+
+pluginsync=true
+server = <%= $puppet_server_fqdn %>
+
+[master]
+certname = <%= $puppet_server_fqdn %>
+dns_alt_names = puppet.<%= mydomain %>,puppet
+
+[agent]
+certname = <%= myhostname %>.<%= mydomain %>
+
