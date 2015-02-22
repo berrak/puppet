@@ -4,7 +4,9 @@
 class hieradata::config {
 
     $puppet_server_ipaddress_list = $::hieradata::params::puppet_server_ipaddress_list
-    notice "Server IPs ($puppet_server_ipaddress_list) known to hieradata"
+    notify { "Server IPs ${puppet_server_ipaddress_list} known to hieradata":
+	    loglevel => info,
+    }
 
     ## Install hieradata for puppet-server
 	if ( $::ipaddress in $puppet_server_ipaddress_list ) {
