@@ -3,8 +3,11 @@
 ##
 class hieradata::config {
 
+    $puppet_server_ipaddress_list = $::hieradata::params::puppet_server_ipaddress_list
+    notice "Server IPs ($puppet_server_ipaddress_list) known to hieradata"
+
     ## Install hieradata for puppet-server
-	if ( $::ipaddress in $::hieradata::params::puppet_server_ipaddress_list ) {
+	if ( $::ipaddress in $puppet_server_ipaddress_list ) {
     
         include puppet_server
     
