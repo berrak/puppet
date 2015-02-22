@@ -3,6 +3,8 @@
 ##
 class hieradata::params {
 
-    $puppet_server_ipaddress_list = [ '192.168.0.222', '176.10.168.227' ]
+    ## Puppet servers
+    $puppet_server_ipaddress_local      = '192.168.0.222'
+    $puppet_server_ipaddress_public_176 = '176.10.168.227'
 
 }
