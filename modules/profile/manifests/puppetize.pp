@@ -9,7 +9,7 @@ class profile::puppetize {
     ## looks up where puppet_server hosts IP addresses are in  'puppet_agent::params'
     include puppet_agent
     include git_client
-    
+
 
     ## Only installed on puppet_server!
     
