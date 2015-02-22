@@ -21,7 +21,7 @@ class puppet_server::config {
 			$puppet_server_fqdn = 'puppet.triatagroup.com'
 		}
 		else {
-			fail("FAIL: Puppet server ip-address missmatch with puppet_server params-file!") }
+			fail("FAIL: Puppet server ip-address missmatch with puppet_server params-file!")
         }
         
         ## This host is the puppet server!
