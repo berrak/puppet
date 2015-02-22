@@ -3,6 +3,9 @@
 ##
 class puppet_server::config {
 
+	## Must be included to use params!
+	include puppet_server::params
+
 	$puppet_server_ipaddress_list = $::puppet_server::params::puppet_server_ipaddress_list
 	notify { "Server IPs ${puppet_server_ipaddress_list} known to puppet_server":
 		loglevel => info,
