@@ -3,63 +3,61 @@
 ##
 class puppet_server::config {
 
-	## Must be included to use params!
-	include puppet_server::params
+    ## Must be included to use params!
+    include puppet_server::params
 
-	$puppet_server_ipaddress_list = $::puppet_server::params::puppet_server_ipaddress_list
-	notify { "Server IPs ${puppet_server_ipaddress_list} known to puppet_server":
-		loglevel => alert,
-	}
+    $puppet_server_ipaddress_list = $::puppet_server::params::puppet_server_ipaddress_list
+    notify { "Server IPs ${puppet_server_ipaddress_list} known to puppet_server":
+        loglevel => alert,
+    }
 
-	## Install puppet-server configuration
-	if ( $::ipaddress in $puppet_server_ipaddress_list ) {
+    ## Install puppet-server configuration
+    if ( $::ipaddress in $puppet_server_ipaddress_list ) {
 
         if ( $::ipaddress == '192.168.0.222' ) {
-			$puppet_server_fqdn = 'puppet.home.tld'
-		}
-		elseif ( $::ipaddress == '176.10.168.227' ) {
-			$puppet_server_fqdn = 'puppet.triatagroup.com'
-		}
-		else {
-			fail("FAIL: Puppet server ip-address missmatch with puppet_server params-file!")
+            $puppet_server_fqdn = 'puppet.home.tld'
         }
-        
+
+        if ( $::ipaddress == '176.10.168.227' ) {
+            $puppet_server_fqdn = 'puppet.triatagroup.com'
+        }
+
         ## This host is the puppet server!
         $puppet_server_ipaddress = $::ipaddress
 
-		notify { "Puppet server host ${puppet_server_fqdn} known to puppet_server":
-			loglevel => alert,
-		}
+        notify { "Puppet server host ${puppet_server_fqdn} known to puppet_server":
+            loglevel => alert,
+        }
 
         $myhostname = $::hostname
-        $mydomain = $::domain
-           
+        $mydomain   = $::domain
+
         file { '/etc/puppet/puppet.conf' :
-            ensure => present,
-           content =>  template( 'puppet_server/puppet.conf.erb' ),    
-             owner => 'root',
-             group => 'root',
-           require => Class['puppet_server::install'],
-            notify => Class['puppet_server::service'],
+            ensure  => present,
+            content => template( 'puppet_server/puppet.conf.erb' ),
+            owner   => 'root',
+            group   => 'root',
+            require => Class['puppet_server::install'],
+            notify  => Class['puppet_server::service'],
         }
-            
+
         file { '/etc/puppet/auth.conf' :
-            ensure => present,
-            source => 'puppet:///modules/puppet_server/auth.conf',
-             owner => 'root',
-             group => 'root',
-           require => Class['puppet_server::install'],
-            notify => Class['puppet_server::service'],
+            ensure  => present,
+            source  => 'puppet:///modules/puppet_server/auth.conf',
+            owner   => 'root',
+            group   => 'root',
+            require => Class['puppet_server::install'],
+            notify  => Class['puppet_server::service'],
         }
 
         file { '/etc/puppet/fileserver.conf' :
-            ensure => present,
-            source => 'puppet:///modules/puppet_server/fileserver.conf',
-             owner => 'root',
-             group => 'root',
-           require => Class['puppet_server::install'],
-            notify => Class['puppet_server::service'],
+            ensure  => present,
+            source  => 'puppet:///modules/puppet_server/fileserver.conf',
+            owner   => 'root',
+            group   => 'root',
+            require => Class['puppet_server::install'],
+            notify  => Class['puppet_server::service'],
         }
-                
+
     }
 }
