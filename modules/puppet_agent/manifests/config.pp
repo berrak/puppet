@@ -11,8 +11,11 @@ class puppet_agent::config {
        require => Class['puppet_agent::install'],
     }
 	
+	$puppet_server_ipaddress_list = $::puppet_agent::params::puppet_server_ipaddress_list
+	notice "Server IPs ($puppet_server_ipaddress_list) known to puppet_agent"
+	
 	## Install agent configuration, unless this is the puppet-server
-	if ! ( $::ipaddress in $::puppet_agent::params::puppet_server_ipaddress_list ) {
+	if ! ( $::ipaddress in $puppet_server_ipaddress_list ) {
 	
 		## is host in private network or in 176-public network
 		if $::ipaddress =~ /^192\./ {
