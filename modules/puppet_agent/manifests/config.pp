@@ -12,7 +12,9 @@ class puppet_agent::config {
     }
 	
 	$puppet_server_ipaddress_list = $::puppet_agent::params::puppet_server_ipaddress_list
-	notice "Server IPs ($puppet_server_ipaddress_list) known to puppet_agent"
+	notify { "Server IPs ${puppet_server_ipaddress_list} known to puppet_agent":
+		loglevel => info,
+	}
 	
 	## Install agent configuration, unless this is the puppet-server
 	if ! ( $::ipaddress in $puppet_server_ipaddress_list ) {
