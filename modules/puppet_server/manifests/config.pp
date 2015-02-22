@@ -8,7 +8,7 @@ class puppet_server::config {
 
 	$puppet_server_ipaddress_list = $::puppet_server::params::puppet_server_ipaddress_list
 	notify { "Server IPs ${puppet_server_ipaddress_list} known to puppet_server":
-		loglevel => info,
+		loglevel => alert,
 	}
 
 	## Install puppet-server configuration
@@ -26,6 +26,10 @@ class puppet_server::config {
         
         ## This host is the puppet server!
         $puppet_server_ipaddress = $::ipaddress
+
+		notify { "Puppet server host ${puppet_server_fqdn} known to puppet_server":
+			loglevel => alert,
+		}
 
         $myhostname = $::hostname
         $mydomain = $::domain
