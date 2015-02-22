@@ -4,7 +4,9 @@
 class puppet_server::config {
 
 	$puppet_server_ipaddress_list = $::puppet_server::params::puppet_server_ipaddress_list
-	notice "Server IPs ($puppet_server_ipaddress_list) known to puppet_server"
+	notify { "Server IPs ${puppet_server_ipaddress_list} known to puppet_server":
+		loglevel => info,
+	}
 
 	## Install puppet-server configuration
 	if ( $::ipaddress in $puppet_server_ipaddress_list ) {
