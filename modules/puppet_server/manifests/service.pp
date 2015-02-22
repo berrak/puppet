@@ -3,9 +3,9 @@
 ##
 class puppet_server::service {
 
-	service { 'puppetmaster':
-		 enable => true,
-		 ensure => running,
-		require => Class['puppet_server::install'],
-	}
+    service { 'puppetmaster':
+        ensure  => running,
+        enable  => true,
+        require => Class['puppet_server::install'],
+    }
 }
