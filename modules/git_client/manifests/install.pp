@@ -1,7 +1,7 @@
 ##
 ## Manage git
 ##
-class puppet_gitclient::install {
+class git_client::install {
 
 	package { 'git' :
 			ensure => present,
