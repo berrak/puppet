@@ -3,6 +3,10 @@
 ##
 class root_bashrc {
 
-	include root_bashrc::config
-	
+    if ! ( $::operatingsystem == 'Debian' ) {
+        fail("FAIL: This module (root_bashrc) is only for Debian based distributions! Aborting...")
+    }
+
+    include root_bashrc::config
+
 }
