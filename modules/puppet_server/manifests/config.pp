@@ -3,12 +3,15 @@
 ##
 class puppet_server::config {
 
+	$puppet_server_ipaddress_list = $::puppet_server::params::puppet_server_ipaddress_list
+	notice "Server IPs ($puppet_server_ipaddress_list) known to puppet_server"
+
 	## Install puppet-server configuration
-	if ( $::ipaddress in $::puppet_server::params::puppet_server_ipaddress_list ) {
+	if ( $::ipaddress in $puppet_server_ipaddress_list ) {
 
         case $::ipaddress {
-        '192.168.0.222' : { $puppet_server_fqdn = 'dell.home.tld' }
-        '176.10.168.227': { $puppet_server_fqdn = 'dl380g7.triatagroup.com' }
+        '192.168.0.222' : { $puppet_server_fqdn = 'puppet.home.tld' }
+        '176.10.168.227': { $puppet_server_fqdn = 'puppet.triatagroup.com' }
         default         : { fail("FAIL: Puppet server ip-address missmatch with puppet_server params-file!") }
         }
         
