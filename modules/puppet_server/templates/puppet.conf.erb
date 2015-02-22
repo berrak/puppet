@@ -9,10 +9,10 @@ rundir=/var/run/puppet
 factpath=$vardir/lib/facter
 
 pluginsync=true
-server = <%= puppet_server_ipaddress %>
+server = <%= puppet_server_fqdn %>
 
 [master]
-certname = puppet.home.tld
+certname = puppet.<%= mydomain %>
 dns_alt_names = puppet.<%= mydomain %>,puppet
 
 [agent]
