@@ -16,11 +16,11 @@ class puppet_agent::config {
 	
 		## is host in private network or in 176-public network
 		if $::ipaddress =~ /^192\./ {
-			$puppet_server_fqdn = 'dell.home.tld'
+			$puppet_server_fqdn = 'puppet.home.tld'
 			$puppet_server_ipaddress = '192.168.0.222'
 		}
 		elsif $::ipaddress =~ /^176\./ {
-			$puppet_server_fqdn = 'dl380g7.triatagroup.com'
+			$puppet_server_fqdn = 'puppet.triatagroup.com'
 			$puppet_server_ipaddress = '176.10.168.227'
 		}
 		else {
