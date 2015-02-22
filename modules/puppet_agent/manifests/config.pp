@@ -11,6 +11,9 @@ class puppet_agent::config {
        require => Class['puppet_agent::install'],
     }
 	
+	## Must be included to use params!
+	include puppet_agent::params
+	
 	$puppet_server_ipaddress_list = $::puppet_agent::params::puppet_server_ipaddress_list
 	notify { "Server IPs ${puppet_server_ipaddress_list} known to puppet_agent":
 		loglevel => info,
