@@ -14,10 +14,14 @@ class puppet_server::config {
 	## Install puppet-server configuration
 	if ( $::ipaddress in $puppet_server_ipaddress_list ) {
 
-        case $::ipaddress {
-        '192.168.0.222' : { $puppet_server_fqdn = 'puppet.home.tld' }
-        '176.10.168.227': { $puppet_server_fqdn = 'puppet.triatagroup.com' }
-        default         : { fail("FAIL: Puppet server ip-address missmatch with puppet_server params-file!") }
+        if ( $::ipaddress == '192.168.0.222' ) {
+			$puppet_server_fqdn = 'puppet.home.tld'
+		}
+		elseif ( $::ipaddress == '176.10.168.227' ) {
+			$puppet_server_fqdn = 'puppet.triatagroup.com'
+		}
+		else {
+			fail("FAIL: Puppet server ip-address missmatch with puppet_server params-file!") }
         }
         
         ## This host is the puppet server!
