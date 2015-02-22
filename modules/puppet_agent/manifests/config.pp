@@ -18,7 +18,7 @@ class puppet_agent::config {
 
     ## Install agent configuration, unless this is the puppet-server
     if (( $::ipaddress == $puppet_server_ipaddress_local ) or ( $::ipaddress == $puppet_server_ipaddress_public_176 )) {
-        notify { "Skipping agent configuration file since this is Puppet server": loglevel => alert }
+        notify { "Skipping agent configuration file since this is Puppet server": loglevel => notice }
     }
     else {
 
@@ -35,8 +35,8 @@ class puppet_agent::config {
             fail("FAIL: Host IPv4 ($::ipaddress) is not on any managed network!")
         }
 
-        notify { "Puppet server IPs ${puppet_server_ipaddress} known to puppet_agent": loglevel => alert }
-        notify { "Puppet server FQDN ${puppet_server_fqdn} known to puppet_agent": loglevel => alert }
+        notify { "Puppet server IPs ${puppet_server_ipaddress} known to puppet_agent": loglevel => notice }
+        notify { "Puppet server FQDN ${puppet_server_fqdn} known to puppet_agent": loglevel => notice }
 
         $myhostname = $::hostname
         $mydomain = $::domain
