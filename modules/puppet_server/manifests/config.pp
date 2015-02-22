@@ -5,29 +5,25 @@ class puppet_server::config {
 
     ## Must be included to use params!
     include puppet_server::params
-
-    $puppet_server_ipaddress_list = $::puppet_server::params::puppet_server_ipaddress_list
-    notify { "Server IPs ${puppet_server_ipaddress_list} known to puppet_server":
-        loglevel => alert,
-    }
-
+    $puppet_server_ipaddress_local      = $::puppet_server::params::puppet_server_ipaddress_local
+    $puppet_server_ipaddress_public_176 = $::puppet_server::params::puppet_server_ipaddress_public_176
+    
     ## Install puppet-server configuration
-    if ( $::ipaddress in $puppet_server_ipaddress_list ) {
+    if (( $::ipaddress == $puppet_server_ipaddress_local ) or ( $::ipaddress == $puppet_server_ipaddress_public_176 )) {
 
-        if ( $::ipaddress == '192.168.0.222' ) {
+        if ( $::ipaddress == $puppet_server_ipaddress_local ) {
             $puppet_server_fqdn = 'puppet.home.tld'
         }
 
-        if ( $::ipaddress == '176.10.168.227' ) {
+        if ( $::ipaddress == $puppet_server_ipaddress_public_176 ) {
             $puppet_server_fqdn = 'puppet.triatagroup.com'
         }
 
         ## This host is the puppet server!
         $puppet_server_ipaddress = $::ipaddress
 
-        notify { "Puppet server host ${puppet_server_fqdn} known to puppet_server":
-            loglevel => alert,
-        }
+        notify { "Puppet server IPs ${puppet_server_ipaddress} known to puppet_server": loglevel => alert }
+        notify { "Puppet server FQDN ${puppet_server_fqdn} known to puppet_server": loglevel => alert }
 
         $myhostname = $::hostname
         $mydomain   = $::domain
