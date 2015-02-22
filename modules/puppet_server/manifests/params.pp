@@ -1,5 +1,5 @@
 ##
-## Managed puppet-server
+## Manage Puppet server
 ##
 class puppet_server::params {
 
