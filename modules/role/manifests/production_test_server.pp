@@ -1,3 +1,6 @@
+##
+## Clone of production server as pre-test
+##
 class role::production_test_server {
 
     ## 1. Define stage
@@ -12,7 +15,7 @@ class role::production_test_server {
 
     ## 3. Assign class to stage
     class { boot_strap_puppet:
-        stage => prereqs,
+        stage => 'prereqs',
     }
 
     ## COMMON MODULES

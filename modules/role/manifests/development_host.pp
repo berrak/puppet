@@ -1,3 +1,6 @@
+##
+## Host for systemdevelopment
+##
 class role::development_host {
 
     ## 1. Define stage
@@ -12,7 +15,7 @@ class role::development_host {
 
     ## 3. Assign class to stage
     class { boot_strap_puppet:
-        stage => prereqs,
+        stage => 'prereqs',
     }
 
     ## COMMON MODULES
