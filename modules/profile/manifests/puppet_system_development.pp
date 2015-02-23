@@ -1,6 +1,12 @@
+##
+## Manage puppet developer system
+##
 class profile::puppet_system_development {
 
-    ## Add hiera lookups if required
-    
-    
+    ## Add HIERA lookups if required
+
+
+    ## Include COMPONENTS
+
+
 }

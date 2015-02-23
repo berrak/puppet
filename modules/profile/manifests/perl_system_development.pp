@@ -1,6 +1,12 @@
+##
+## Manage perl developer system
+##
 class profile::perl_system_development {
 
-    ## Add hiera lookups if required
-    
-    
+    ## Add HIERA lookups if required
+
+
+    ## Include COMPONENTS
+
+
 }
