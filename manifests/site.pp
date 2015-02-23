@@ -8,3 +8,10 @@ node 'dell.home.tld' {
 
 }
 
+node 'hp.home.tld' {
+    
+    ## Main ROLE of this host
+    include role::production_test_server
+
+}
+
