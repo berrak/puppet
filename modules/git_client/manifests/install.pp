@@ -3,9 +3,9 @@
 ##
 class git_client::install {
 
-	package { 'git' :
-			ensure => present,
-	 allow_virtual => true,
-	}
+    package { 'git' :
+        ensure          => present,
+        allow_virtual   => true,
+    }
 
 }
