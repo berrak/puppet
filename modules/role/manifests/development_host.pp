@@ -15,11 +15,17 @@ class role::development_host {
         stage => prereqs,
     }
 
-    ## Generic includes
+    ## COMMON MODULES
     include boot_strap_puppet
     include root_bashrc
+
+    ## TECHNOLOGY PROFILES
+    #include profile::perl_system_development
+    #include profile::puppet_system_development
+
+    ## USER ACCOUNTS
+    include account
+    realize ( Account::Virtual['jodo'] )
     
-    ## Specific PROFILES for this host
-    #include profile::perl
 
 }
