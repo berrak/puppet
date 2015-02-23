@@ -1,7 +1,7 @@
 ##
-## Host for systemdevelopment
+## Clone of production server as pre-test
 ##
-class role::development_host {
+class role::production_test_server {
 
     ## 1. Define stage
     stage { 'prereqs':
@@ -23,11 +23,9 @@ class role::development_host {
     include root_bashrc
 
     ## TECHNOLOGY PROFILES
-    #include profile::perl_system_development
-    #include profile::puppet_system_development
+    #include profile::kvm_virtual_machine_host
 
     ## USER ACCOUNTS
-    include account
-    realize ( Account::Virtual['jodo'] )
+
 
 }
