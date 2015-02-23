@@ -7,6 +7,6 @@ class git_client {
         fail("FAIL: This module (git_client) is only for Debian based distributions! Aborting...")
     }
 
-    include git_client::install
+    include git_client::install, git_client::config
 
 }
