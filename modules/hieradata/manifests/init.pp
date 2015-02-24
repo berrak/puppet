@@ -7,5 +7,5 @@ class hieradata {
         fail("FAIL: This module (hieradata) is only for Debian based distributions! Aborting...")
     }
 
-    include hieradata::config, hieradata::params
+    include hieradata::config
 }
