@@ -8,4 +8,9 @@ class account {
         realname    => 'John Doe',
     }
 
+    @account::virtual { 'bob' :
+        uid         => 1002,
+        realname    => 'Bob',
+    }
+
 }
