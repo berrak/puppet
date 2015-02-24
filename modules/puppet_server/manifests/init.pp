@@ -7,5 +7,5 @@ class puppet_server {
         fail("FAIL: This module (puppet_server) is only for Debian based distributions! Aborting...")
     }
 
-    include puppet_server::install, puppet_server::config, puppet_server::service, puppet_server::params
+    include puppet_server::install, puppet_server::config, puppet_server::service
 }
