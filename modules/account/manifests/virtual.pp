@@ -1,9 +1,9 @@
 ##
 ## Manage virtual users
 ##
-define account::virtual ( $uid, $realname, $pass ) {
+define account::virtual ( $uid, $realname ) {
 
-    ## Use HIERA to get more user data below
+    ## Use HIERA to get/replace more user data below
 
     $username = $title
 
@@ -14,7 +14,6 @@ define account::virtual ( $uid, $realname, $pass ) {
         shell       => '/bin/bash',
         home        => "/home/${username}",
         comment     => $realname,
-        password    => $pass,
         managehome  => true,
         require     => Group[$username],
     }
