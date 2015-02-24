@@ -3,6 +3,6 @@
 ##
 class profile {
 
-    include profile::puppetize, profile::params
+    include profile::puppetize
 
 }
