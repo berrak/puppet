@@ -17,7 +17,7 @@ class profile::puppetize {
         $puppet_server_ipaddress    = '176.10.168.227'
     }
     else {
-        fail("FAIL: Host IPv4 ($::ipaddress) is not on any managed network!")
+        fail("FAIL: Host IPv4 (${::ipaddress}) is not on any managed network!")
     }
 
     ## Install puppet_server configuration
