@@ -1,7 +1,7 @@
 ##
 ## Manage Puppet clients
 ##
-class puppet_agent::config ( $server_fqdn, $server_ip ) {
+class puppet_agent::config ( $server_fqdn_for_agent, $server_ip_for_agent ) {
 
     include puppet_agent
 
@@ -14,13 +14,13 @@ class puppet_agent::config ( $server_fqdn, $server_ip ) {
     }
 
     ## Install agent configuration file, unless this is the puppet-server
-    if $::ipaddress == $server_ip {
+    if $::ipaddress == $server_ip_for_agent {
         notify { 'Skipping agent configuration file since this is Puppet server̈́': loglevel => notice }
     }
     else {
 
-        $puppet_server_fqdn         = $server_fqdn
-        $puppet_server_ipaddress    = $server_ip
+        $puppet_server_fqdn         = $server_fqdn_for_agent
+        $puppet_server_ipaddress    = $server_ip_for_agent
 
         notify { "Puppet server IPs ${puppet_server_ipaddress} known to puppet_agent": loglevel => notice }
         notify { "Puppet server FQDN ${puppet_server_fqdn} known to puppet_agent": loglevel => notice }
