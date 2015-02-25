@@ -60,4 +60,19 @@ define account::virtual ( $uid, $realname ) {
         require => File["/home/${username}"],
     }
 
+    # Append one line to original .bashrc to source user customizations.
+    file_line { "Enable_${username}_customization" :
+        file    => "/home/${username}/.bashrc",
+        line    => "[ -f ~/bashrc.d/${username} ] && source ~/bashrc.d/${username}",
+        require => File["/home/${username}/bashrc.d"],
+    }
+
+    # Default user customization file
+    file { "/home/${username}/bashrc.d/${username}":
+        source  => "puppet:///modules/account/${username}",
+        owner   => "${username}",
+        group   => "${username}",
+        require => File["/home/${username}/bashrc.d"],
+    }
+
 }
