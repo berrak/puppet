@@ -30,4 +30,13 @@ class hieradata::config {
         require => File['/etc/puppet/hieradata'],
     }
 
+    ## Data store files
+    file { '/etc/puppet/hieradata/node/192.168.0.222.yaml' :
+        ensure  => present,
+        source  => 'puppet:///modules/hieradata/192.168.0.222.yaml',
+        owner   => 'root',
+        group   => 'root',
+        require => File['/etc/puppet/hieradata/node'],
+    }
+
 }
