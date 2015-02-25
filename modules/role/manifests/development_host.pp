@@ -29,5 +29,7 @@ class role::development_host {
     ## USER ACCOUNTS
     include account
     Account::Virtual <| title == 'bekr' |>
+    git_client::customize { 'bekr': }
+
 
 }
