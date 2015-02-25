@@ -5,8 +5,8 @@
 define git_client::customize {
 
     ## HIERA lookups
-    $gitname  = hiera("git_client::customize::{name}_gitname")
-    $gitemail = hiera("git_client::customize::{name}_gitemail")
+    $gitname  = hiera("git_client::customize::${name}_gitname")
+    $gitemail = hiera("git_client::customize::${name}_gitemail")
 
     include git_client
 
@@ -14,7 +14,6 @@ define git_client::customize {
         ensure  => directory,
         owner   => $name,
         group   => $name,
-        require => File["/home/${user}"],
     }
 
     file { "/home/${name}/.gitconfig" :
@@ -27,7 +26,7 @@ define git_client::customize {
     # Add user git bashrc snippet
     file { "/home/${name}/bashrc.d/git.rc" :
         ensure  => present,
-        source  => "puppet:///modules/git_client/git.rc",
+        source  => 'puppet:///modules/git_client/git.rc',
         owner   => $name,
         group   => $name,
         require => Class['git_client'],
