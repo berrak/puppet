@@ -7,5 +7,11 @@ class puppet_server::install {
         ensure          => latest,
         allow_virtual   => true,
     }
+    
+    package { 'puppet-module-puppetlabs-stdlib':
+        ensure          => latest,
+        allow_virtual   => true,
+        require         => Package['puppetmaster'],
+    }
 
 }
