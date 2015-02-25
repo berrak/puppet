@@ -11,9 +11,9 @@ define git_client::customize {
     include git_client
 
     file { "/home/${name}/GIT":
-        ensure  => directory,
-        owner   => $name,
-        group   => $name,
+        ensure => directory,
+        owner  => $name,
+        group  => $name,
     }
 
     file { "/home/${name}/.gitconfig" :
