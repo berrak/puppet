@@ -3,8 +3,6 @@
 ##
 define account::virtual ( $uid, $realname ) {
 
-    include stdlib
-
     ## Use HIERA to get/replace more user data below
 
     $username = $title
