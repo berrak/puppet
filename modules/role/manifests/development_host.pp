@@ -21,6 +21,7 @@ class role::development_host {
     ## COMMON MODULES
     include boot_strap_puppet
     include root_bashrc
+    include apt_config
 
     ## TECHNOLOGY PROFILES
     #include profile::perl_system_development
