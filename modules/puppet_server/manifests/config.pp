@@ -11,8 +11,8 @@ class puppet_server::config ( $server_fqdn, $server_ip ) {
         $puppet_server_ipaddress = $server_ip
         $puppet_server_fqdn = $server_fqdn
 
-        notify { "Puppet server IPs ${puppet_server_ipaddress} known to puppet_server": loglevel => notice }
-        notify { "Puppet server FQDN ${puppet_server_fqdn} known to puppet_server": loglevel => notice }
+        notify { "Puppet server IPs ${puppet_server_ipaddress} known to puppet_server": loglevel => info }
+        notify { "Puppet server FQDN ${puppet_server_fqdn} known to puppet_server": loglevel => info }
 
         $myhostname = $::hostname
         $mydomain   = $::domain
