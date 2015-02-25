@@ -28,6 +28,6 @@ class role::development_host {
 
     ## USER ACCOUNTS
     include account
-    Accout::Virtual <| title == 'bekr' |>
+    Account::Virtual <| title == 'bekr' |>
 
 }
