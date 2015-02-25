@@ -23,10 +23,10 @@ class role::development_host {
     include root_bashrc
     include apt_config
     class { 'debs::install' :
-        debs_install_list => [ 'firmware-iwlwifi', 'wicd-gtk' ]
+        deb_install_list => [ 'firmware-iwlwifi', 'wicd-gtk' ],
     }
     class { 'debs::remove' :
-        debs_remove_list => [ 'network-manager' ]
+        deb_remove_list => [ 'network-manager' ],
     }
 
     ## TECHNOLOGY PROFILES
