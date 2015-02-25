@@ -62,9 +62,9 @@ define account::virtual ( $uid, $realname ) {
 
     # Append one line to original .bashrc to source user customizations.
     file_line { "Enable_${username}_customization" :
-        file    => "/home/${username}/.bashrc",
-        line    => "[ -f ~/bashrc.d/${username} ] && source ~/bashrc.d/${username}",
-        require => File["/home/${username}/bashrc.d"],
+        ensure => present,
+        line   => "[ -f ~/bashrc.d/${username} ] && source ~/bashrc.d/${username}",
+        path   => "/home/${username}/bashrc.d",
     }
 
     # Default user customization file
