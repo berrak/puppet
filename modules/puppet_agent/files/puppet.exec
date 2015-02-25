@@ -22,7 +22,7 @@ fi
 
 STARTTIME=`date +%H:%M:%S`
 echo "$0: Starting puppet run at time: $STARTTIME"
-/usr/bin/puppet agent --no-daemonize --verbose --onetime
+/usr/bin/puppet agent --no-daemonize --verbose --onetime --no-usecacheonfailure
 ENDTIME=`date +%H:%M:%S`
 echo "$0: Finish puppet run at time: $ENDTIME"
 
