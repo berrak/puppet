@@ -22,6 +22,12 @@ class role::development_host {
     include boot_strap_puppet
     include root_bashrc
     include apt_config
+    class { 'debs::install' :
+        debs_install_list => [ 'firmware-iwlwifi', 'wicd-gtk' ]
+    }
+    class { 'debs::remove' :
+        debs_remove_list => [ 'network-manager' ]
+    }
 
     ## TECHNOLOGY PROFILES
     #include profile::perl_system_development
