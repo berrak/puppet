@@ -1,0 +1,8 @@
+##############################################################
+# MANAGED BY PUPPET. DO NOT EDIT. CHANGES WILL BE WIPED OUT. #
+##############################################################
+
+Explanation: Jessie
+Package: *
+Pin: release a=stable
+Pin-Priority: 990
