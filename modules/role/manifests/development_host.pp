@@ -28,7 +28,6 @@ class role::development_host {
 
     ## USER ACCOUNTS
     include account
-    realize ( Account::Virtual['jodo'] )
-    realize ( Account::Virtual['bob'] )
+    Accout::Virtual <| title == 'bekr' |>
 
 }
