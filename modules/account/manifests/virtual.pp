@@ -3,6 +3,8 @@
 ##
 define account::virtual ( $uid, $realname ) {
 
+    include stdlib
+
     ## Use HIERA to get/replace more user data below
 
     $username = $title
@@ -35,6 +37,28 @@ define account::virtual ( $uid, $realname ) {
         owner   => $username,
         group   => $username,
         mode    => '0700',
+        require => File["/home/${username}"],
+    }
+    
+    file { "/home/${username}/bin":
+        ensure  => directory,
+        owner   => $username,
+        group   => $username,
+        require => File["/home/${username}"],
+    }
+
+    file { "/home/${username}/tmp":
+        ensure  => directory,
+        owner   => $username,
+        group   => $username,
+        require => File["/home/${username}"],
+    }
+
+    # Local .bashrc sub directory for bashrc snippets 
+    file { "/home/${username}/bashrc.d":
+        ensure  => directory,
+        owner   => $username,
+        group   => $username,
         require => File["/home/${username}"],
     }
 
