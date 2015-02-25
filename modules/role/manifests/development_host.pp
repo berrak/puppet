@@ -14,7 +14,7 @@ class role::development_host {
     }
 
     ## 3. Assign class to stage
-    class { boot_strap_puppet:
+    class { 'boot_strap_puppet' :
         stage => 'prereqs',
     }
 
@@ -29,5 +29,6 @@ class role::development_host {
     ## USER ACCOUNTS
     include account
     realize ( Account::Virtual['jodo'] )
+    realize ( Account::Virtual['bob'] )
 
 }
