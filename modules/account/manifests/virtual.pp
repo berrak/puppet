@@ -9,15 +9,15 @@ define account::virtual ( $uid, $realname ) {
     $groups = hiera( "account::virtual::${username}_groups" )
 
     user { $username:
-        ensure      => present,
-        uid         => $uid,
-        gid         => $username,
-        groups      => $groups,
-        shell       => '/bin/bash',
-        home        => "/home/${username}",
-        comment     => $realname,
-        managehome  => true,
-        require     => Group[$username],
+        ensure     => present,
+        uid        => $uid,
+        gid        => $username,
+        groups     => $groups,
+        shell      => '/bin/bash',
+        home       => "/home/${username}",
+        comment    => $realname,
+        managehome => true,
+        require    => Group[$username],
     }
 
     group { $username:
@@ -72,8 +72,8 @@ define account::virtual ( $uid, $realname ) {
     # Default user customization file
     file { "/home/${username}/bashrc.d/${username}":
         source  => "puppet:///modules/account/${username}",
-        owner   => "${username}",
-        group   => "${username}",
+        owner   => "$username",
+        group   => "$username",
         require => File["/home/${username}/bashrc.d"],
     }
 
