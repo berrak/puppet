@@ -3,14 +3,16 @@
 ##
 define account::virtual ( $uid, $realname ) {
 
-    ## Use HIERA to get/replace more user data below
-
     $username = $title
+
+    ## HIERA data
+    $groups = hiera( "account::virtual::${username}_groups" )
 
     user { $username:
         ensure      => present,
         uid         => $uid,
         gid         => $username,
+        groups      => $groups,
         shell       => '/bin/bash',
         home        => "/home/${username}",
         comment     => $realname,
