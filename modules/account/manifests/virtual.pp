@@ -28,7 +28,7 @@ define account::virtual ( $uid, $realname ) {
         ensure  => directory,
         owner   => $username,
         group   => $username,
-        mode    => 0750,
+        mode    => '0750',
         require => [ User[$username], Group[$username] ],
     }
 
@@ -72,8 +72,8 @@ define account::virtual ( $uid, $realname ) {
     # Default user customization file
     file { "/home/${username}/bashrc.d/${username}":
         source  => "puppet:///modules/account/${username}",
-        owner   => "$username",
-        group   => "$username",
+        owner   => $username,
+        group   => $username,
         require => File["/home/${username}/bashrc.d"],
     }
 
