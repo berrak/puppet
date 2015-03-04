@@ -3,19 +3,21 @@
 ##
 define account::virtual ( $uid, $realname ) {
 
-    ## Use HIERA to get/replace more user data below
-
     $username = $title
 
+    ## HIERA data
+    $groups = hiera( "account::virtual::${username}_groups" )
+
     user { $username:
-        ensure      => present,
-        uid         => $uid,
-        gid         => $username,
-        shell       => '/bin/bash',
-        home        => "/home/${username}",
-        comment     => $realname,
-        managehome  => true,
-        require     => Group[$username],
+        ensure     => present,
+        uid        => $uid,
+        gid        => $username,
+        groups     => $groups,
+        shell      => '/bin/bash',
+        home       => "/home/${username}",
+        comment    => $realname,
+        managehome => true,
+        require    => Group[$username],
     }
 
     group { $username:
@@ -26,7 +28,7 @@ define account::virtual ( $uid, $realname ) {
         ensure  => directory,
         owner   => $username,
         group   => $username,
-        mode    => 0750,
+        mode    => '0750',
         require => [ User[$username], Group[$username] ],
     }
 
@@ -70,8 +72,8 @@ define account::virtual ( $uid, $realname ) {
     # Default user customization file
     file { "/home/${username}/bashrc.d/${username}":
         source  => "puppet:///modules/account/${username}",
-        owner   => "${username}",
-        group   => "${username}",
+        owner   => $username,
+        group   => $username,
         require => File["/home/${username}/bashrc.d"],
     }
 
