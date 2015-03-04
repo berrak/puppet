@@ -5,7 +5,7 @@ define account::virtual ( $uid, $realname ) {
 
     $username = $title
 
-    ## HIERA data
+    ## HIERA lookup
     $groups = hiera( "account::virtual::${username}_groups" )
 
     user { $username:
