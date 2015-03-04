@@ -2,9 +2,10 @@
 git_client::customize::bekr_gitname: berrak
 git_client::customize::bekr_gitemail: bkronmailbox-git@yahoo.se
 
-account::virtual::bob_groups:
+account::virtual::
+  bekr_groups:
   - sshusers
-account::virtual::jodo_groups:
+  bob_groups:
   - 
-account::virtual::bekr_groups:
+  jodo_groups:
   - sshusers
