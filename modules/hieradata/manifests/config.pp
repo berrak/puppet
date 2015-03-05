@@ -1,7 +1,9 @@
 ##
-## Manage Hiera data
+## Manage Hiera configuration only!
 ##
 class hieradata::config {
+
+    ## The HIERA DATA (yaml) files are GIT-maintained in ~/puppet/hieradata
 
     include puppet_server
 
@@ -29,15 +31,6 @@ class hieradata::config {
     file { '/etc/puppet/hieradata/node':
         ensure  => directory,
         require => File['/etc/puppet/hieradata'],
-    }
-
-    ## Add individual data files
-    file { "/etc/puppet/hieradata/node/${::ipaddress}.yaml" :
-        ensure  => present,
-        source  => "puppet:///modules/hieradata/${::ipaddress}.yaml",
-        owner   => 'root',
-        group   => 'root',
-        require => File['/etc/puppet/hieradata/node'],
     }
 
 }

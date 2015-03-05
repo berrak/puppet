@@ -1,5 +1,5 @@
 ##
-## Manage Hiera data
+## Manage Hiera configuration only!
 ##
 class hieradata {
 
