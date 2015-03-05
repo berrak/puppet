@@ -10,6 +10,9 @@ class puppet_server::config ( $server_fqdn, $server_ip ) {
         ## This host is the puppet server!
         $puppet_server_ipaddress = $server_ip
         $puppet_server_fqdn = $server_fqdn
+        
+        ## Always install dnsmasq on Puppet server to resolve domains properly
+        include dnsmasq
 
         notify { "Puppet server IPs ${puppet_server_ipaddress} known to puppet_server": loglevel => info }
         notify { "Puppet server FQDN ${puppet_server_fqdn} known to puppet_server": loglevel => info }
