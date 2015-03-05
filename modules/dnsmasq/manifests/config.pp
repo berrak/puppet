@@ -22,7 +22,7 @@ class dnsmasq::config {
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        notify  => Service['dnsmasq::service'],
+        notify  => Class['dnsmasq::service'],
     }
 
 }
