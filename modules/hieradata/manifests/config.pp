@@ -22,12 +22,22 @@ class hieradata::config {
     }
 
     file { '/etc/puppet/hieradata':
-        ensure => directory,
+        ensure  => directory,
+        require => Class['puppet_server::install'],
     }
 
     file { '/etc/puppet/hieradata/node':
         ensure  => directory,
         require => File['/etc/puppet/hieradata'],
+    }
+
+    ## Add individual data files
+    file { "/etc/puppet/hieradata/node/${::ipaddress}.yaml" :
+        ensure  => present,
+        source  => "puppet:///modules/hieradata/${::ipaddress}.yaml",
+        owner   => 'root',
+        group   => 'root',
+        require => File['/etc/puppet/hieradata/node'],
     }
 
 }
