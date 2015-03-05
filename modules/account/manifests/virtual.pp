@@ -8,6 +8,12 @@ define account::virtual ( $uid, $realname ) {
     ## HIERA lookup
     $groups = hiera( "account::virtual::${username}_groups" )
 
+    exec { "add_group_${groups}":
+        command => "addgroup ${groups}",
+           path => '/usr/bin:/usr/sbin:/bin',
+         unless => "cat /etc/group | grep ${groups}",
+    }
+
     user { $username:
         ensure     => present,
         uid        => $uid,
@@ -17,7 +23,7 @@ define account::virtual ( $uid, $realname ) {
         home       => "/home/${username}",
         comment    => $realname,
         managehome => true,
-        require    => Group[$username],
+        require    => [ Group[$username], Exec["add_group_${groups}"] ],
     }
 
     group { $username:
