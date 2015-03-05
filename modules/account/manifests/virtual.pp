@@ -10,8 +10,8 @@ define account::virtual ( $uid, $realname ) {
 
     exec { "add_group_${groups}":
         command => "addgroup ${groups}",
-           path => '/usr/bin:/usr/sbin:/bin',
-         unless => "cat /etc/group | grep ${groups}",
+        path    => '/usr/bin:/usr/sbin:/bin',
+        unless  => "cat /etc/group | grep ${groups}",
     }
 
     user { $username:
