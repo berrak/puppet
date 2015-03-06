@@ -17,10 +17,10 @@ class puppet_agent::install {
     }
 
     file { '/root/bin/puppet.exec':
-        source => 'puppet:///modules/puppet_agent/puppet.exec',
-        owner  => 'root',
-        group  => 'root',
-        mode   => '0700',
+        source  => 'puppet:///modules/puppet_agent/puppet.exec',
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0700',
         require => File['/root/bin'],
     }
 
