@@ -1,10 +1,21 @@
 ---
-git_client::customize::bekr_gitname : berrak
-git_client::customize::bekr_gitemail: bkronmailbox-git@yahoo.se
+git_client::customize::bekr_gitname : 'berrak'
+git_client::customize::bekr_gitemail: 'bkronmailbox-git@yahoo.se'
 
 account::virtual::bekr_groups:
-  - sshusers
+  - 'sshusers'
 
-dnsmasq::config::mydns1: 208.67.222.222
-dnsmasq::config::mydns2: 208.67.220.220
-dnsmasq::config::primary_interface: eth0
+dnsmasq::config::mydns1: '208.67.222.222'
+dnsmasq::config::mydns2: '208.67.220.220'
+dnsmasq::config::primary_interface: 'eth0'
+
+host::config::host_ip         : '192.168.0.222'
+host::config::myhost_domain   : 'home.tld'
+
+host::config::gateway_ip      : '192.168.0.1'
+host::config::mygateway_domain: 'home.tld'
+host::config::gateway_hostname: 'gondor'
+
+host::config::smtp_ip         : '192.168.0.11'
+host::config::mysmtp_domain   : 'home.tld'
+host::config::smtp_hostname   : 'rohan'
