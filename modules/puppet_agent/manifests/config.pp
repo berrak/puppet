@@ -1,7 +1,7 @@
 ##
 ## Manage Puppet clients
 ##
-class puppet_agent::config ( $server_fqdn_for_agent, $server_ip_for_agent ) {
+define puppet_agent::config ( $server_fqdn_for_agent, $server_ip_for_agent ) {
 
     include puppet_agent
 
