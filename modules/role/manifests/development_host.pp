@@ -23,6 +23,7 @@ class role::development_host {
     include root_bashrc
     include apt_config
     include network
+    include cron_auto_upgrade
 
     #include wifi
     #class { 'debs::install' :
