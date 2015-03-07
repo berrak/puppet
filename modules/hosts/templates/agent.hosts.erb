@@ -1,0 +1,15 @@
+##############################################################
+# MANAGED BY PUPPET. DO NOT EDIT. CHANGES WILL BE WIPED OUT. # 
+##############################################################
+
+127.0.0.1  localhost localhost.localdomain
+<%= host_ip %>  <%= myhostname %>.<%= myhost_domain %>  <%= myhostname %>
+<%= puppetserver_ip %>  puppet.<%= mypuppetserver_domain %>  puppet
+<%= gateway_ip %>  <%= gateway_hostname %>.<%= mygateway_domain %> <%= gateway_hostname %>
+<%= smtp_ip %>  <%= smtp_hostname %>.<%= mysmtp_domain %>  <%= smtp_hostname %>
+
+# Other hosts on this domain
+<% if in_domain_servers != '' -%>
+<% in_domain_servers.each do |myhost| %><%= "#{myhost} \n" %><% end -%>
+<% end %>
+
