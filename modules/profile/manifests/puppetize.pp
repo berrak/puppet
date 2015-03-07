@@ -13,7 +13,7 @@ class profile::puppetize {
             server_fqdn_for_agent => 'puppet.home.tld',
             server_ip_for_agent   => '192.168.0.222',
         }
-        hosts::agent { "$::hostname" :
+        hosts::agent { "${::hostname}" :
             puppet_server_ip => '192.168.0.222',
             network_domain   => 'home.tld',
         }
@@ -23,7 +23,7 @@ class profile::puppetize {
             server_fqdn_for_agent => 'puppet.triatagroup.com',
             server_ip_for_agent   => '176.10.168.227',
         }
-        hosts::agent { "$::hostname" :
+        hosts::agent { "${::hostname}" :
             puppet_server_ip => '176.10.168.227',
             network_domain   => 'triatagroup.com',
         }
