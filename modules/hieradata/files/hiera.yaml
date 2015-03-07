@@ -4,5 +4,5 @@
 :yaml:
   :datadir: /etc/puppet/hieradata
 :hierarchy:
-  - "node/%{::hostname}"
+  - "node/%{::ipaddress}"
   - common
