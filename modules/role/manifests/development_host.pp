@@ -22,12 +22,12 @@ class role::development_host {
     include boot_strap_puppet
     include root_bashrc
     include apt_config
-    class { 'debs::install' :
-        deb_install_list => [ 'firmware-iwlwifi', 'wicd-cli', 'wpasupplicant' ],
-    }
-    class { 'debs::remove' :
-        deb_remove_list => [ 'network-manager' ],
-    }
+    include network
+
+    #include wifi
+    #class { 'debs::install' :
+    #    deb_install_list => [ 'firmware-iwlwifi', 'wicd-cli', 'wpasupplicant' ],
+    #}
 
     ## TECHNOLOGY PROFILES
     #include profile::perl_system_development
