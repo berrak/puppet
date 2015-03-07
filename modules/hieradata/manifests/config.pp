@@ -4,7 +4,6 @@
 class hieradata::config {
 
     ## The HIERA DATA (yaml) files are GIT-maintained in ~/puppet/hieradata
-
     include puppet_server
 
     ## Install hiera configuration
