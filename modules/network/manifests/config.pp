@@ -15,8 +15,8 @@ class network::config {
 
     if ( $host_enslaved_interface == '' ) {
 
-        file { "/etc/network/interfaces":
-            content => template( "network/interfaces.erb" ),
+        file { '/etc/network/interfaces':
+            content => template( 'network/interfaces.erb' ),
             owner   => 'root',
             group   => 'root',
             notify  => Class['network::service'],
@@ -24,8 +24,8 @@ class network::config {
         }
     } else {
 
-        file { "/etc/network/interfaces":
-            content => template( "network/bridge.interfaces.erb" ),
+        file { '/etc/network/interfaces':
+            content => template( 'network/bridge.interfaces.erb' ),
             owner   => 'root',
             group   => 'root',
             notify  => Class['network::service'],

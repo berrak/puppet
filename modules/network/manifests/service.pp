@@ -3,7 +3,7 @@
 #
 class network::service {
 
-    service { "networking":
+    service { 'networking':
         ensure  => running,
         enable  => true,
         require => Class['network::install'],
