@@ -9,9 +9,9 @@ class puppet_agent::install {
     }
 
     file { '/etc/puppet/files' :
-        ensure  => directory,
-        owner   => 'root',
-        group   => 'root',
+        ensure => directory,
+        owner  => 'root',
+        group  => 'root',
     }
 
     ## Utilities for root
