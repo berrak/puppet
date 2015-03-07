@@ -5,14 +5,6 @@ define puppet_agent::config ( $server_fqdn_for_agent, $server_ip_for_agent ) {
 
     include puppet_agent
 
-    ## Always created
-    file { '/etc/puppet/files' :
-        ensure  => directory,
-        owner   => 'root',
-        group   => 'root',
-        require => Class['puppet_agent::install'],
-    }
-
     ## Install agent configuration file, unless this is the puppet-server
     if $::ipaddress == $server_ip_for_agent {
         notify { 'Skipping agent configuration file since this is Puppet server̈́': loglevel => info }

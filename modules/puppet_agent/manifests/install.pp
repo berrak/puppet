@@ -8,6 +8,12 @@ class puppet_agent::install {
         allow_virtual => true,
     }
 
+    file { '/etc/puppet/files' :
+        ensure => directory,
+        owner  => 'root',
+        group  => 'root',
+    }
+
     ## Utilities for root
     file { '/root/bin' :
         ensure => directory,
