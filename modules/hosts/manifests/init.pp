@@ -7,6 +7,6 @@ class hosts {
         fail('FAIL: This module (hosts) is only for Debian based distributions! Aborting...')
     }
 
-    include admin_hosts::config
+    include hosts::config
 
 }
