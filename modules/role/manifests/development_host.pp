@@ -25,6 +25,7 @@ class role::development_host {
     include network
     include cron_auto_upgrade
     include ntp
+    include iptables_fail2ban
 
     #include wifi
     #class { 'debs::install' :
