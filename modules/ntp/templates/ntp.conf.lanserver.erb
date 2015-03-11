@@ -1,0 +1,53 @@
+##############################################################
+# MANAGED BY PUPPET. DO NOT EDIT. CHANGES WILL BE WIPED OUT. #
+##############################################################
+# LAN NTP server configuration file local master time server.#
+##############################################################
+
+driftfile /var/lib/ntp/ntp.drift
+
+# Enable this if you want statistics to be logged.
+#statsdir /var/log/ntpstats/
+
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+
+
+# One good NTP server close to us.
+server ntp1.sp.se iburst
+
+# Low-stratum NTP servers at pool.ntp.org
+<% if public_ntp_servers != '' -%>
+<% in_domain_servers.each do |myntp| %><%= "#{myntp} \n" %><% end -%>
+<% end %>
+
+server 127.127.1.0     # local clock
+fudge 127.127.1.0 stratum 10
+
+############################################################################
+# Access control configuration; see /usr/share/doc/ntp-doc/html/accopt.html
+# for details.
+# The web page <http://support.ntp.org/bin/view/Support/AccessRestrictions>
+# might also be helpful.
+###########################################################################
+
+# Note that "restrict" applies to both servers and clients, so a
+# configuration that might be intended to block requests from certain clients
+# could also end up blocking replies from your own upstream servers.
+
+# By default, exchange time with everybody, but don't allow configuration.
+restrict -4 default kod notrap nomodify nopeer noquery
+restrict -6 default kod notrap nomodify nopeer noquery
+
+# Local host may interrogate the ntp server more closely.
+restrict 127.0.0.1
+restrict ::1
+
+# Privat lan subnet have direct access, if any
+restrict <%= local_ntp_srvnet %> mask <%= local_ntp_srvmask %> nomodify notrap
+
+# Don't broadcast the world! Not required for LAN clients.
+# broadcast XXX.XXX.XXX.XXX
+
