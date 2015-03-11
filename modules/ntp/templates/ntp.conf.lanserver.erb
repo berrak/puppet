@@ -20,7 +20,7 @@ server ntp1.sp.se iburst
 
 # Low-stratum NTP servers at pool.ntp.org
 <% if public_ntp_servers != '' -%>
-<% in_domain_servers.each do |myntp| %><%= "#{myntp} \n" %><% end -%>
+<% public_ntp_servers.each do |myntp| %><%= "#{myntp} \n" %><% end -%>
 <% end %>
 
 server 127.127.1.0     # local clock
