@@ -32,3 +32,9 @@ network::config::broadcast    : '192.168.0.255'
 ntp::config::local_ntp_server_ipaddr : ''
 ntp::config::local_ntp_srvnet        : ''
 ntp::config::local_ntp_srvmask       : ''
+
+iptables_fail2ban::config::fail2ban_modsec  : 'false'
+iptables_fail2ban::config::fail2ban_apache  : 'false'
+iptables_fail2ban::config::fail2ban_postfix : 'false'
+
+iptables_fail2ban::config::is_server        : 'false'
