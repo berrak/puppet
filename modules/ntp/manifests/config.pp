@@ -8,7 +8,7 @@ class ntp::config {
     $local_ntp_srvnet = hiera( 'ntp::config::local_ntp_srvnet' )
     $local_ntp_srvmask = hiera( 'ntp::config::local_ntp_srvmask' )
 
-    $local_ntp_server_ipaddr = hiera( 'ntp::config::public_ntp_servers')
+    $public_ntp_servers = hiera( 'ntp::config::public_ntp_servers')
 
     ## Internal NTP client och lan server configuration
     if ! ( $local_ntp_server_ipaddr == '' ) {
