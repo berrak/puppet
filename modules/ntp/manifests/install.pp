@@ -4,7 +4,7 @@
 class ntp::install {
 
     package { 'ntp' :
-        ensure => present,
+        ensure        => present,
         allow_virtual => true,
     }
 

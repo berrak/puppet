@@ -51,10 +51,10 @@ class ntp::config {
 
         file { '/etc/ntp.conf':
             content =>  template( 'ntp/ntp.conf.erb' ),
-            owner => 'root',
-            group => 'root',
+            owner   => 'root',
+            group   => 'root',
             require => Class['ntp::install'],
-            notify => Class['ntp::service'],
+            notify  => Class['ntp::service'],
         }
 
     }
