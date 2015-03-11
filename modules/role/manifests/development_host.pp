@@ -24,6 +24,7 @@ class role::development_host {
     include apt_config
     include network
     include cron_auto_upgrade
+    include ntp
 
     #include wifi
     #class { 'debs::install' :
