@@ -1,0 +1,29 @@
+##############################################################
+# MANAGED BY PUPPET. DO NOT EDIT. CHANGES WILL BE WIPED OUT. #
+##############################################################
+# This is the local LAN NTP client configuration file.       #
+##############################################################
+
+driftfile /var/lib/ntp/ntp.drift
+
+# Enable this if you want statistics to be logged.
+#statsdir /var/log/ntpstats/
+
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+
+# Use our internal NTP server for internal clients
+server <%= local_ntp_server_ipaddr %> iburst
+server 127.127.1.0   # local clock
+fudge 127.127.1.0 stratum 10
+
+# Local users may interrogate the ntp server more closely.
+restrict 127.0.0.1
+restrict ::1
+
+# If you want to listen to time broadcasts on your local subnet.
+# Please do this only if you trust everybody on the network!
+disable auth
+broadcastclient

@@ -1,0 +1,15 @@
+#!/bin/bash
+##############################################################
+# MANAGED BY PUPPET. DO NOT EDIT. CHANGES WILL BE WIPED OUT. #
+##############################################################
+
+if [ -x /usr/bin/ntpq ] ; then
+    ntpq -p <%= local_ntp_server_ipaddr %>
+    echo ''
+    /usr/sbin/ntptime
+    echo ''
+else
+    echo "NTP daemon is not installed. Cannot query local time server!"
+fi
+date
+
