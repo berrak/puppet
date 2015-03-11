@@ -5,7 +5,7 @@ class network::config {
 
     ## HIERA lookup
     $host_interface = hiera( 'network::config::interface' )
-    $host_enslaved_interface = hiera( 'network::config::enslaved_interface', '' )
+    $host_enslaved_interface = hiera( 'network::config::enslaved_interface')
     
     $host_address   = hiera( 'network::config::ip' )
     $host_netmask   = hiera( 'network::config::netmask' )
