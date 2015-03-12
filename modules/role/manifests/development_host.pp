@@ -28,10 +28,12 @@ class role::development_host {
     ## SECURITY
     include cron_auto_upgrade
     include iptables_fail2ban
+    include sudo
+    include sysctl
 
     ## MAINTENANCE
     include rsyslog
-    include sysctl
+
     # include ssh_server
 
     #include wifi
