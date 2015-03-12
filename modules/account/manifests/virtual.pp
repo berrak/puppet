@@ -6,11 +6,13 @@ define account::virtual ( $uid, $realname ) {
     $username = $title
 
     include sudo
+    include nfs4_client
     include stdlib
 
     ## HIERA lookup
-    $groups   = hiera( "account::virtual::${username}_groups" )
-    $has_sudo = hiera( "account::virtual::${username}_has_sudo" )
+    $groups       = hiera( "account::virtual::${username}_groups" )
+    $has_sudo     = hiera( "account::virtual::${username}_has_sudo" )
+    $nfs_consumer = hiera( "account::virtual::${username}_nfs_consumer" )
 
     exec { "add_group_${groups}":
         command => "addgroup ${groups}",
@@ -97,6 +99,18 @@ define account::virtual ( $uid, $realname ) {
             require => Class['sudo'],
         }
 
+    }
+
+    # Create local nfs mount directory for this user
+    if ( str2bool($nfs_consumer) ) {
+
+        file { "/home/${username}/nfs":
+            ensure  => directory,
+            owner   => $username,
+            group   => $username,
+            mode    => '0755',
+            require => File["/home/${username}/nfs"],
+        }
     }
 
 }
