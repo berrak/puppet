@@ -1,5 +1,5 @@
 ##
-## Host for systemdevelopment
+## Host for system development
 ##
 class role::development_host {
 
@@ -24,6 +24,7 @@ class role::development_host {
     include apt_config
     include network
     include ntp
+    include nfs4_client
 
     ## SECURITY
     include cron_auto_upgrade
