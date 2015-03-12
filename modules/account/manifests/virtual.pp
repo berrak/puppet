@@ -90,9 +90,9 @@ define account::virtual ( $uid, $realname ) {
     if ( $has_sudo == true ) {
 
         exec { "add_${username}_to_sudo_group" :
-            command => "usermod -a -G sudo $username",
+            command => "usermod -a -G sudo ${username}",
             path    => '/usr/bin:/usr/sbin:/bin',
-            unless  => "cat /etc/group | grep sudo | grep $username",
+            unless  => "cat /etc/group | grep sudo | grep ${username}",
             require => Class['sudo'],
         }
 
