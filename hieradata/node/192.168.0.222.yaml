@@ -2,7 +2,8 @@
 git_client::customize::bekr_gitname : 'berrak'
 git_client::customize::bekr_gitemail: 'bkronmailbox-git@yahoo.se'
 
-account::virtual::bekr_groups:
+account::virtual::bekr_has_sudo: 'true'
+account::virtual::bekr_groups  :
   - 'sshusers'
 
 dnsmasq::config::mydns1: '208.67.222.222'
