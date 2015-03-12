@@ -5,8 +5,11 @@ define account::virtual ( $uid, $realname ) {
 
     $username = $title
 
+    include sudo
+
     ## HIERA lookup
-    $groups = hiera( "account::virtual::${username}_groups" )
+    $groups   = hiera( "account::virtual::${username}_groups" )
+    $has_sudo = hiera( "account::virtual::${username}_has_sudo" )
 
     exec { "add_group_${groups}":
         command => "addgroup ${groups}",
@@ -81,6 +84,18 @@ define account::virtual ( $uid, $realname ) {
         owner   => $username,
         group   => $username,
         require => File["/home/${username}/bashrc.d"],
+    }
+
+    # Add sudo power to this user
+    if ( $has_sudo == true ) {
+
+        exec { "add_${username}_to_sudo_group" :
+            command => "usermod -a -G sudo ${username}",
+            path    => '/usr/bin:/usr/sbin:/bin',
+            unless  => "cat /etc/group | grep sudo | grep ${username}",
+            require => Class['sudo'],
+        }
+
     }
 
 }
