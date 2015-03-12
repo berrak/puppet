@@ -6,6 +6,7 @@ define account::virtual ( $uid, $realname ) {
     $username = $title
 
     include sudo
+    include stdlib
 
     ## HIERA lookup
     $groups   = hiera( "account::virtual::${username}_groups" )
@@ -87,7 +88,7 @@ define account::virtual ( $uid, $realname ) {
     }
 
     # Add sudo power to this user
-    if ( $has_sudo == true ) {
+    if ( str2bool($has_sudo) ) {
 
         exec { "add_${username}_to_sudo_group" :
             command => "usermod -a -G sudo ${username}",
