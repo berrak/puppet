@@ -1,7 +1,7 @@
 ##
 ## Manage user with sudo capability.
 ##
-class hp_sudo {
+class sudo {
 
     if ! ( $::operatingsystem == 'Debian' ) {
         fail('FAIL: This module (sudo) is only for Debian based distributions! Aborting...')
