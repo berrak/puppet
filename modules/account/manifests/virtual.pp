@@ -109,7 +109,7 @@ define account::virtual ( $uid, $realname ) {
             owner   => $username,
             group   => $username,
             mode    => '0755',
-            require => File["/home/${username}/nfs"],
+            require => File["/home/${username}"],
         }
     }
 
