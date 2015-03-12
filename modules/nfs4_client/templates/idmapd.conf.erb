@@ -1,11 +1,7 @@
-##############################################################
-# MANAGED BY PUPPET. DO NOT EDIT. CHANGES WILL BE WIPED OUT. #
-##############################################################
-
 [General]
 
 Verbosity = 0
-Pipefs-Directory = /var/lib/nfs/rpc_pipefs
+Pipefs-Directory = /run/rpc_pipefs
 # set your own domain here, if id differs from FQDN minus hostname
 Domain = <%= mydomain %>
 
@@ -14,5 +10,4 @@ Domain = <%= mydomain %>
 Nobody-User = nobody
 Nobody-Group = nogroup
 
-[Translation]
-Method = nsswitch
+
