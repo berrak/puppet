@@ -9,7 +9,7 @@ class logrotate::config {
         content => template('logrotate/logrotate.conf.erb'),
         owner   => 'root',
         group   => 'root',
-        require => Class['hp_logrotate::install'],
+        require => Class['logrotate::install'],
     }
 
 }
