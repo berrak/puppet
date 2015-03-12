@@ -34,6 +34,7 @@ class role::development_host {
 
     ## MAINTENANCE
     include rsyslog
+    include logrotate
 
     # include ssh_server
 
