@@ -31,7 +31,7 @@ class role::development_host {
 
     ## MAINTENANCE
     include rsyslog
-    # include sysctl
+    include sysctl
     # include ssh_server
 
     #include wifi
