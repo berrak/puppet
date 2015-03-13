@@ -3,8 +3,11 @@
 ##
 class logwatch::config {
 
+    # HIERA lookup
+    $logwatch_mailto = hiera( 'logwatch::config::logwatch_mailto' )
+
     file { '/etc/logwatch/conf/logwatch.conf':
-        source  => 'puppet:///modules/logwatch/logwatch.conf',
+        content =>  template( 'logwatch/logwatch.conf.erb' ),
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
