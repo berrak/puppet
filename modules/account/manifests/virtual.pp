@@ -3,33 +3,28 @@
 ##
 define account::virtual ( $uid, $realname ) {
 
+
     $username = $title
 
-    include sudo
-    include nfs4_client
     include stdlib
+    include sudo
+    #include ssh_server
+    include nfs4_client
 
     ## HIERA lookup
-    $groups       = hiera( "account::virtual::${username}_groups" )
-    $has_sudo     = hiera( "account::virtual::${username}_has_sudo" )
-    $nfs_consumer = hiera( "account::virtual::${username}_nfs_consumer" )
-
-    exec { "add_group_${groups}":
-        command => "addgroup ${groups}",
-        path    => '/usr/bin:/usr/sbin:/bin',
-        unless  => "cat /etc/group | grep ${groups}",
-    }
+    $has_sudo       = hiera( "account::virtual::${username}_has_sudo" )
+    $nfs_consumer   = hiera( "account::virtual::${username}_nfs_consumer" )
+    $has_ssh_access = hiera( "account::virtual::${username}_has_ssh_access" )
 
     user { $username:
         ensure     => present,
         uid        => $uid,
         gid        => $username,
-        groups     => $groups,
         shell      => '/bin/bash',
         home       => "/home/${username}",
         comment    => $realname,
         managehome => true,
-        require    => [ Group[$username], Exec["add_group_${groups}"] ],
+        require    => Group[$username],
     }
 
     group { $username:
@@ -89,7 +84,7 @@ define account::virtual ( $uid, $realname ) {
         require => File["/home/${username}/bashrc.d"],
     }
 
-    # Add sudo power to this user
+    # Add sudo power to this user - if in group 'sudo'
     if ( str2bool($has_sudo) ) {
 
         exec { "add_${username}_to_sudo_group" :
@@ -98,8 +93,18 @@ define account::virtual ( $uid, $realname ) {
             unless  => "cat /etc/group | grep sudo | grep ${username}",
             require => Class['sudo'],
         }
-
     }
+
+#    # Add remote login for unprivileged user - if in group 'sshusers'
+#    if ( str2bool($has_ssh_access) ) {
+#    
+#        exec { "add_${username}_to_sshusers_group" :
+#            command => "usermod -a -G sshusers ${username}",
+#            path    => '/usr/bin:/usr/sbin:/bin',
+#            unless  => "cat /etc/group | grep sshusers | grep ${username}",
+#            require => Class['ssh_server'],
+#        }
+#    }
 
     # Create local nfs mount directory for this user
     if ( str2bool($nfs_consumer) ) {
