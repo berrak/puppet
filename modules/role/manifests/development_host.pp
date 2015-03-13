@@ -36,6 +36,7 @@ class role::development_host {
     include rsyslog
     include logrotate
     include ssh_server
+    include logwatch
 
     #include wifi
     #class { 'debs::install' :
