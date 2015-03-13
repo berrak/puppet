@@ -20,7 +20,6 @@ define account::virtual ( $uid, $realname ) {
         ensure     => present,
         uid        => $uid,
         gid        => $username,
-        groups     => $groups,
         shell      => '/bin/bash',
         home       => "/home/${username}",
         comment    => $realname,
