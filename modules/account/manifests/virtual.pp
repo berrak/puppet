@@ -8,7 +8,7 @@ define account::virtual ( $uid, $realname ) {
 
     include stdlib
     include sudo
-    #include ssh_server
+    include ssh_server
     include nfs4_client
 
     ## HIERA lookup
@@ -95,16 +95,16 @@ define account::virtual ( $uid, $realname ) {
         }
     }
 
-#    # Add remote login for unprivileged user - if in group 'sshusers'
-#    if ( str2bool($has_ssh_access) ) {
-#    
-#        exec { "add_${username}_to_sshusers_group" :
-#            command => "usermod -a -G sshusers ${username}",
-#            path    => '/usr/bin:/usr/sbin:/bin',
-#            unless  => "cat /etc/group | grep sshusers | grep ${username}",
-#            require => Class['ssh_server'],
-#        }
-#    }
+    # Add remote login for unprivileged user - if in group 'sshusers'
+    if ( str2bool($has_ssh_access) ) {
+    
+        exec { "add_${username}_to_sshusers_group" :
+            command => "usermod -a -G sshusers ${username}",
+            path    => '/usr/bin:/usr/sbin:/bin',
+            unless  => "cat /etc/group | grep sshusers | grep ${username}",
+            require => Class['ssh_server'],
+        }
+    }
 
     # Create local nfs mount directory for this user
     if ( str2bool($nfs_consumer) ) {
