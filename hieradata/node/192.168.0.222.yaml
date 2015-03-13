@@ -44,4 +44,4 @@ sysctl::config::kernel_domain_name          : 'home.tld'
 sysctl::config::ipv4_forwarding             : '0'
 sysctl::config::ipv6_forwarding             : '0'
 
-logwatch::config::logwatch_mailto : 'bekr@rohan.home.tld'
+logwatch::config::logwatch_mailto : 'root@rohan.home.tld'
