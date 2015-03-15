@@ -44,4 +44,16 @@ sysctl::config::kernel_domain_name          : 'home.tld'
 sysctl::config::ipv4_forwarding             : '0'
 sysctl::config::ipv6_forwarding             : '0'
 
-logwatch::config::logwatch_mailto : 'root@rohan.home.tld'
+logwatch::config::logwatch_mailto           : 'root@rohan.home.tld'
+
+postfix::install::mta_type                  : 'satellite'
+postfix::install::has_external_relay_host   : 'false'
+postfix::install::has_lan_outbound_mail     : 'false'
+postfix::install::network                   : '192.168.0.0'
+postfix::install::smtp_relayhost_ip         : '192.168.0.11'
+# below only for mailserver
+postfix::install::server_root_mail_user     : ''
+postfix::install::external_root_gmail_cc    : ''
+postfix::install::smtp_relayhost_fqdn       : ''
+# requires procmail if not empty
+postfix::install::mail_box_command          : ''
