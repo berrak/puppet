@@ -4,7 +4,7 @@
 class logwatch::config {
 
     # HIERA lookup
-    $logwatch_mailto = hiera( 'logwatch::config::logwatch_mailto' )
+    $logwatch_mailto = hiera( "logwatch::config::${::domain}_logwatch_mailto" )
 
     file { '/etc/logwatch/conf/logwatch.conf':
         content =>  template( 'logwatch/logwatch.conf.erb' ),
