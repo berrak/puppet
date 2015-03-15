@@ -25,7 +25,7 @@ class postfix::config {
     $myfqdn       = $::fqdn
 
     # Optional block mail transport for any external destination
-    if str2bool($has_lan_outbound_mail) == true {
+    if ( str2bool($has_lan_outbound_mail) == true ) {
         $transport_maps = ''
     } else {
         $transport_maps = 'transport_maps = hash:/etc/postfix/transport'
@@ -50,7 +50,7 @@ class postfix::config {
         }
 
         # Do not allow mails reach outside local domain
-        if str2bool($has_lan_outbound_mail) == false {
+        if ( str2bool($has_lan_outbound_mail) == false ) {
 
             file { '/etc/postfix/transport' :
                 content =>  template( 'postfix/transport.erb' ),
