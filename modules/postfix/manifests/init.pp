@@ -7,6 +7,6 @@ class postfix {
         fail('FAIL: This module (postfix) is only for Debian based distributions! Aborting...')
     }
 
-    include postfix::install, postfix::service
+    include postfix::install, postfix::config, postfix::service
 
 }
