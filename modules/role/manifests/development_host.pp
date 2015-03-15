@@ -25,6 +25,7 @@ class role::development_host {
     include network
     include ntp
     include nfs4_client
+    include postfix
 
     ## SECURITY
     include cron_auto_upgrade
