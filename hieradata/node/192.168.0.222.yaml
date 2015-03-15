@@ -44,8 +44,6 @@ sysctl::config::kernel_domain_name          : 'home.tld'
 sysctl::config::ipv4_forwarding             : '0'
 sysctl::config::ipv6_forwarding             : '0'
 
-logwatch::config::logwatch_mailto           : 'root@rohan.home.tld'
-
 postfix::install::mta_type                  : 'satellite'
 postfix::install::has_external_relay_host   : 'false'
 postfix::install::has_lan_outbound_mail     : 'false'

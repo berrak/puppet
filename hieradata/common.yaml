@@ -13,6 +13,8 @@ ntp::config::public_ntp_servers:
   -  'server 2.se.pool.ntp.org iburst'
   -  'server 3.se.pool.ntp.org iburst'
 
+logwatch::config::home.tld_logwatch_mailto         : 'root@rohan.home.tld'
+
 iptables_fail2ban::config::fail2ban_trusted_ipaddr :  '81.237.245.35'
 iptables_fail2ban::config::iptables_home_net       :  '192.168.0.0/24'
 iptables_fail2ban::config::iptables_google_net     :  '66.249.67.0/24̈́'
