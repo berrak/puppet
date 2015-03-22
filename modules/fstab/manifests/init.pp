@@ -1,7 +1,7 @@
 ##
 ## Manage local fstab file
 ##
-class hosts {
+class fstab {
 
     if ! ( $::operatingsystem == 'Debian' ) {
         fail('FAIL: This module (fstab) is only for Debian based distributions! Aborting...')
