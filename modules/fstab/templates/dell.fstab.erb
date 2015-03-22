@@ -1,0 +1,28 @@
+##############################################################
+# MANAGED BY PUPPET. DO NOT EDIT. CHANGES WILL BE WIPED OUT. # 
+##############################################################
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+/dev/mapper/vg-lv_root /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/sda1 during installation
+UUID=48410d18-c062-4493-a2ef-6ef9be6ccde5 /boot           ext4    defaults        0       2
+/dev/mapper/vg-lv_data /data           ext4    defaults        0       2
+/dev/mapper/vg-lv_home /home           ext4    defaults        0       2
+/dev/mapper/vg-lv_tmp /tmp            ext4    defaults        0       2
+/dev/mapper/vg-lv_var /var            ext4    defaults        0       2
+/dev/mapper/vg-lv_var_log /var/log        ext4    defaults        0       2
+/dev/mapper/vg-lv_var_tmp /var/tmp        ext4    defaults        0       2
+/dev/mapper/vg-lv_swap_crypt none            swap    sw              0       0
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+
+
+# Optionally add each user NFSv4 entries
+<% if in_host_nfs_fstab_entries != '' -%>
+<% in_host_nfs_fstab_entries.each do |mynfsline| %><%= "#{mynfsline} \n" %><% end -%>
+<% end %>
+
