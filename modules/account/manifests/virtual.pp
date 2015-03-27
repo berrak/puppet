@@ -9,7 +9,6 @@ define account::virtual ( $uid, $realname ) {
     include stdlib
     include sudo
     include ssh_server
-    include nfs4_client
 
     ## HIERA lookup
     $has_sudo       = hiera( "account::virtual::${username}_has_sudo" )
