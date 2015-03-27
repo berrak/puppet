@@ -24,9 +24,8 @@ class role::development_host {
     include apt_config
     include network
     include ntp
-    include nfs4_client
+    include mount
     include postfix
-    include fstab
 
     ## SECURITY
     include cron_auto_upgrade
