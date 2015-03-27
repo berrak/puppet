@@ -13,7 +13,6 @@ define account::virtual ( $uid, $realname ) {
 
     ## HIERA lookup
     $has_sudo       = hiera( "account::virtual::${username}_has_sudo" )
-    $nfs_consumer   = hiera( "account::virtual::${username}_nfs_consumer" )
     $has_ssh_access = hiera( "account::virtual::${username}_has_ssh_access" )
 
     user { $username:
