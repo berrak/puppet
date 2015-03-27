@@ -3,6 +3,8 @@
 ##
 class mount::config {
 
+    include stdlib
+
     $myhostname = $::hostname
 
     ## HIERA lookup
@@ -22,7 +24,10 @@ class mount::config {
 
     }
 
-    if ! (  $in_host_nfs_fstab_entries == '' ) {
+
+    $is_nfs_consumer = hiera('mount::config::is_nfs_consumer')
+
+    if ( str2bool($is_nfs_consumer) ) {
 
         file { '/etc/default/nfs-common':
             source => 'puppet:///modules/mount/nfs-common',
