@@ -14,7 +14,7 @@ class mount::config {
     if ( str2bool($is_managed_fstab_file) ) {
 
         file { '/etc/fstab' :
-            content => template( "fstab/${myhostname}.fstab.erb" ),
+            content => template( "mount/${myhostname}.fstab.erb" ),
             owner   => 'root',
             group   => 'root',
             mode    => '0644',
