@@ -55,10 +55,6 @@ postfix::install::smtp_relayhost_fqdn         : ''
 # requires procmail if not empty
 postfix::install::mail_box_command            : ''
 
-fstab::config::is_managed_fstab_file          : 'true'
-fstab::config::dell::in_host_nfs_fstab_entries:
-  - '192.168.0.10:/bekr /home/bekr/nfs nfs nfsvers=4,rsize=8192,wsize=8192,intr,clientaddr=192.168.0.10 0 0'
-
 mount::config::is_managed_fstab_file          : 'true'
 mount::config::dell::in_host_nfs_fstab_entries:
   - '192.168.0.10:/bekr /home/bekr/nfs nfs nfsvers=4,rsize=8192,wsize=8192,intr,clientaddr=192.168.0.10 0 0'
