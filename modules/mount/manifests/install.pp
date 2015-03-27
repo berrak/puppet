@@ -3,10 +3,12 @@
 ##
 class mount::install {
 
-    # HIERA lookup - any local NFS4 client install?
-    $has_nfs_entries_for_install = hiera("mount::config::${::hostname}::in_host_nfs_fstab_entries", '')
+    include stdlib
 
-    if ! (  $has_nfs_entries_for_install == '' ) {
+    # HIERA lookup - any local NFS4 client install?
+    $is_nfs_consumer = hiera('mount::install::is_nfs_consumer')
+
+    if ( str2bool($is_nfs_consumer) ) {
 
         package { 'nfs-common' :
             ensure        => installed,
