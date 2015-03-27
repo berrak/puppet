@@ -106,16 +106,15 @@ define account::virtual ( $uid, $realname ) {
         }
     }
 
-    # Create local nfs mount directory for this user
-    if ( str2bool($nfs_consumer) ) {
+    # Always create local user nfs directory to mount
+    # NFSv4 share, in case it will be required later.
 
-        file { "/home/${username}/nfs":
-            ensure  => directory,
-            owner   => $username,
-            group   => $username,
-            mode    => '0755',
-            require => File["/home/${username}"],
-        }
+    file { "/home/${username}/nfs":
+        ensure  => directory,
+        owner   => $username,
+        group   => $username,
+        mode    => '0755',
+        require => File["/home/${username}"],
     }
 
 }
