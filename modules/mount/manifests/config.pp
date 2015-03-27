@@ -8,6 +8,9 @@ class mount::config {
     ## HIERA lookup
     $is_managed_fstab_file = hiera('mount::config::is_managed_fstab_file')
 
+    ## Add each user NFSv4-share to fstab - default to empty string
+    $in_host_nfs_fstab_entries = hiera("mount::config::${::hostname}::in_host_nfs_fstab_entries", '')
+
     if ( str2bool($is_managed_fstab_file) ) {
 
         file { '/etc/fstab' :
@@ -18,9 +21,6 @@ class mount::config {
         }
 
     }
-
-    ## Add each user NFSv4-share to fstab - default to empty string
-    $in_host_nfs_fstab_entries = hiera("mount::config::${::hostname}::in_host_nfs_fstab_entries", '')
 
     if ! (  $in_host_nfs_fstab_entries == '' ) {
 
