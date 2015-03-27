@@ -6,10 +6,7 @@ class mount::config {
     $myhostname = $::hostname
 
     ## HIERA lookup
-    $is_managed_fstab_file     = hiera('mount::config::is_managed_fstab_file')
-
-    ## Add each user NFSv4-share to fstab - default to empty string
-    $in_host_nfs_fstab_entries = hiera("mount::config::${::hostname}::in_host_nfs_fstab_entries", '')
+    $is_managed_fstab_file = hiera('mount::config::is_managed_fstab_file')
 
     if ( str2bool($is_managed_fstab_file) ) {
 
@@ -22,7 +19,7 @@ class mount::config {
 
     }
 
-    # HIERA lookup - any local NFS4 client install?
+    ## Add each user NFSv4-share to fstab - default to empty string
     $in_host_nfs_fstab_entries = hiera("mount::config::${::hostname}::in_host_nfs_fstab_entries", '')
 
     if ! (  $in_host_nfs_fstab_entries == '' ) {
