@@ -32,4 +32,9 @@ class hieradata::config {
         require => File['/etc/puppet/hieradata'],
     }
 
+    file { '/etc/puppet/hieradata/domain':
+        ensure  => directory,
+        require => File['/etc/puppet/hieradata'],
+    }
+
 }

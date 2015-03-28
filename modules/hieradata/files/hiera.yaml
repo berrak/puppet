@@ -5,4 +5,5 @@
   :datadir: /etc/puppet/hieradata
 :hierarchy:
   - "node/%{::ipaddress}"
+  - "domain/%{::domain}"
   - common
