@@ -1,0 +1,3 @@
+---
+puppet_agent::config::puppet_server_fqdn_for_agent : 'puppet.triatagroup.com'
+puppet_agent::config::puppet_server_ip_for_agent   : '176.10.168.227'
