@@ -14,6 +14,12 @@ class puppet_agent::install {
         require       => Package['puppet'],
     }
 
+    # Default to always be available for posssible perl scripts
+    package { 'liblog-log4perl-perl' :
+        ensure        => present,
+        allow_virtual => true,
+    }
+
     file { '/etc/puppet/files' :
         ensure  => directory,
         owner   => 'root',
