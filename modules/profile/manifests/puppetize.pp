@@ -13,20 +13,18 @@ class profile::puppetize {
 
     # Is host in private network or in 176-public network
     if $::ipaddress =~ /^192\./ {
-        puppet_agent::config { $myhostname :
-            server_fqdn_for_agent => 'puppet.home.tld',
-            server_ip_for_agent   => '192.168.0.222',
-        }
+
+        include puppet_agent
+
         hosts::agent { $myhostname :
             puppet_server_ip => '192.168.0.222',
             network_domain   => 'home.tld',
         }
     }
     elsif $::ipaddress =~ /^176\./ {
-        puppet_agent::config { $myhostname :
-            server_fqdn_for_agent => 'puppet.triatagroup.com',
-            server_ip_for_agent   => '176.10.168.227',
-        }
+
+        include puppet_agent
+
         hosts::agent { $myhostname :
             puppet_server_ip => '176.10.168.227',
             network_domain   => 'triatagroup.com',
