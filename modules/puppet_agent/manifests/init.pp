@@ -7,6 +7,6 @@ class puppet_agent {
         fail('FAIL: This module (puppet_agent) is only for Debian based distributions! Aborting...')
     }
 
-    include puppet_agent::install, puppet_agent::config, puppet_agent::service
+    include puppet_agent::install, puppet_agent::service
 
 }
