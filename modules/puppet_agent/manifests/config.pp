@@ -25,7 +25,7 @@ define puppet_agent::config ( $server_fqdn_for_agent, $server_ip_for_agent ) {
             content =>  template( 'puppet_agent/puppet.conf.erb' ),
             owner   => 'root',
             group   => 'root',
-            require => Class['puppet_agent::install'],
+            require => Package['puppet'],
             notify  => Class['puppet_agent::service'],
         }
     }
