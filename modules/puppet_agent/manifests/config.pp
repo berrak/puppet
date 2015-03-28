@@ -1,18 +1,18 @@
 ##
 ## Manage Puppet clients
 ##
-define puppet_agent::config ( $server_fqdn_for_agent, $server_ip_for_agent ) {
+class puppet_agent::config {
 
-    include puppet_agent
+
+    # HIERA lookup
+    $puppet_server_fqdn      = hiera('puppet_agent::config::puppet_server_fqdn_for_agent' )
+    $puppet_server_ipaddress = hiera('puppet_agent::config::puppet_server_ip_for_agent' )
 
     ## Install agent configuration file, unless this is the puppet-server
-    if $::ipaddress == $server_ip_for_agent {
+    if $::ipaddress == $puppet_server_ipaddress {
         notify { 'Skipping agent configuration file since this is Puppet server̈́': loglevel => info }
     }
     else {
-
-        $puppet_server_fqdn         = $server_fqdn_for_agent
-        $puppet_server_ipaddress    = $server_ip_for_agent
 
         notify { "Puppet server IPs ${puppet_server_ipaddress} known to puppet_agent": loglevel => info }
         notify { "Puppet server FQDN ${puppet_server_fqdn} known to puppet_agent": loglevel => info }
@@ -25,6 +25,7 @@ define puppet_agent::config ( $server_fqdn_for_agent, $server_ip_for_agent ) {
             content =>  template( 'puppet_agent/puppet.conf.erb' ),
             owner   => 'root',
             group   => 'root',
+            require => Class['puppet_agent::install'],
             notify  => Class['puppet_agent::service'],
         }
     }
