@@ -6,7 +6,7 @@ class puppet_agent::install {
     package { [ 'puppet', 'facter' ] :
         ensure        => present,
         allow_virtual => true,
-        before        => Class['puppet::config'],
+        before        => Class['puppet_agent::config'],
     }
 
     file { '/etc/puppet/files' :
