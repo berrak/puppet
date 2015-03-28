@@ -20,8 +20,8 @@ host::config::smtp_ip         : '192.168.0.11'
 host::config::mysmtp_domain   : 'home.tld'
 host::config::smtp_hostname   : 'rohan'
 
-network::config::interface    : 'eth1'
-network::config::enslaved_interface: ''
+network::config::interface    : 'kvmbr0'
+network::config::enslaved_interface: 'eth1'
 
 network::config::ip           : '192.168.0.66'
 network::config::netmask      : '255.255.255.0'
