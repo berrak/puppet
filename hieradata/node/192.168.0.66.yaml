@@ -35,9 +35,9 @@ ntp::config::local_ntp_srvmask       : ''
 
 iptables_fail2ban::config::fail2ban_modsec    : 'false'
 iptables_fail2ban::config::fail2ban_apache    : 'false'
-iptables_fail2ban::config::fail2ban_postfix   : 'false'
+iptables_fail2ban::config::fail2ban_postfix   : 'true'
 
-iptables_fail2ban::config::is_server          : 'false'
+iptables_fail2ban::config::is_server          : 'true'
 
 sysctl::config::kernel_domain_name            : 'home.tld'
 sysctl::config::ipv4_forwarding               : '0'

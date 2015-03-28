@@ -35,7 +35,7 @@ ntp::config::local_ntp_srvmask       : ''
 
 iptables_fail2ban::config::fail2ban_modsec    : 'false'
 iptables_fail2ban::config::fail2ban_apache    : 'false'
-iptables_fail2ban::config::fail2ban_postfix   : 'false'
+iptables_fail2ban::config::fail2ban_postfix   : 'true'
 
 iptables_fail2ban::config::is_server          : 'false'
 
