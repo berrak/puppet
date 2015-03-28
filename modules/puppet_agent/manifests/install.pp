@@ -11,7 +11,7 @@ class puppet_agent::install {
     package { 'facter' :
         ensure        => present,
         allow_virtual => true,
-        require => Package['puppet'],
+        require       => Package['puppet'],
     }
 
     file { '/etc/puppet/files' :
