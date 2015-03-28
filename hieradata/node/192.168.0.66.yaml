@@ -1,0 +1,65 @@
+---
+git_client::customize::bekr_gitname : 'berrak'
+git_client::customize::bekr_gitemail: 'bkronmailbox-git@yahoo.se'
+
+account::virtual::bekr_has_sudo      : 'true'
+account::virtual::bekr_has_ssh_access: 'true'
+
+dnsmasq::config::mydns1: '208.67.222.222'
+dnsmasq::config::mydns2: '208.67.220.220'
+dnsmasq::config::primary_interface: 'eth1'
+
+host::config::host_ip         : '192.168.0.66'
+host::config::myhost_domain   : 'home.tld'
+
+host::config::gateway_ip      : '192.168.0.1'
+host::config::mygateway_domain: 'home.tld'
+host::config::gateway_hostname: 'gondor'
+
+host::config::smtp_ip         : '192.168.0.11'
+host::config::mysmtp_domain   : 'home.tld'
+host::config::smtp_hostname   : 'rohan'
+
+network::config::interface    : 'eth1'
+network::config::enslaved_interface: ''
+
+network::config::ip           : '192.168.0.66'
+network::config::netmask      : '255.255.255.0'
+network::config::network      : '192.168.0.0'
+network::config::gateway      : '192.168.0.1'
+network::config::broadcast    : '192.168.0.255'
+
+ntp::config::local_ntp_server_ipaddr : ''
+ntp::config::local_ntp_srvnet        : ''
+ntp::config::local_ntp_srvmask       : ''
+
+iptables_fail2ban::config::fail2ban_modsec    : 'false'
+iptables_fail2ban::config::fail2ban_apache    : 'false'
+iptables_fail2ban::config::fail2ban_postfix   : 'false'
+
+iptables_fail2ban::config::is_server          : 'false'
+
+sysctl::config::kernel_domain_name            : 'home.tld'
+sysctl::config::ipv4_forwarding               : '0'
+sysctl::config::ipv6_forwarding               : '0'
+
+postfix::install::mta_type                    : 'satellite'
+postfix::install::has_external_relay_host     : 'false'
+postfix::install::has_lan_outbound_mail       : 'false'
+postfix::install::network                     : '192.168.0.0'
+postfix::install::smtp_relayhost_ip           : '192.168.0.11'
+# below only for mailserver
+postfix::install::server_root_mail_user       : ''
+postfix::install::external_root_gmail_cc      : ''
+postfix::install::smtp_relayhost_fqdn         : ''
+# requires procmail if not empty
+postfix::install::mail_box_command            : ''
+
+mount::config::is_managed_fstab_file          : 'false'
+mount::install::is_nfs_consumer               : 'false'
+mount::config::is_nfs_consumer                : 'false'
+mount::service::is_nfs_consumer               : 'false'
+mount::config::dell::in_host_nfs_fstab_entries:
+  - ''
+
+
