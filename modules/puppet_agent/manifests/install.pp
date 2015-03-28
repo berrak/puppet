@@ -6,12 +6,14 @@ class puppet_agent::install {
     package { [ 'puppet', 'facter' ] :
         ensure        => present,
         allow_virtual => true,
+        before        => Class['puppet::config'],
     }
 
     file { '/etc/puppet/files' :
-        ensure => directory,
-        owner  => 'root',
-        group  => 'root',
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'root',
+        require => Package['puppet'],
     }
 
     ## Utilities for root
