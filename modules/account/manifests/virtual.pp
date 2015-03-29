@@ -93,14 +93,20 @@ define account::virtual ( $uid, $realname ) {
         }
     }
 
-    # Add remote login for unprivileged user - if in group 'sshusers'
+    # Add remote login for unprivileged user set in HIERA
     if ( str2bool($has_ssh_access) ) {
-    
+
+        exec { 'add_sshusers_group' :
+                command => 'groupadd sshusers',
+                path    => '/usr/bin:/usr/sbin:/bin',
+                unless  => 'cat /etc/group | grep sshusers',
+        }
+
         exec { "add_${username}_to_sshusers_group" :
             command => "usermod -a -G sshusers ${username}",
             path    => '/usr/bin:/usr/sbin:/bin',
             unless  => "cat /etc/group | grep sshusers | grep ${username}",
-            require => Class['ssh_server'],
+            require => Exec['add_sshusers_group'],
         }
     }
 
