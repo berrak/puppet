@@ -53,9 +53,10 @@ class role::development_host {
     #    deb_install_list => [ 'firmware-iwlwifi', 'wicd-cli', 'wpasupplicant' ],
     #}
 
-    ## USER ENVIRONMENT PROFILES (INCL. REQUIRED TECHNOLOGY)
+    ## SYSTEM APPLICATIONS (INCL. THEIR REQUIRED TECHNOLOGY)
     include development_editors
-    
+
+    ## USER ENVIRONMENT PROFILES (ONLY DEFINES)
     profile::git_client { 'bekr': }
     profile::markdown_development { 'bekr': }
 
