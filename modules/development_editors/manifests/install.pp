@@ -6,7 +6,7 @@ class development_editors::install {
     include stdlib
 
     # HIERA lookup
-    $is_markdown = hiera('development_editors::install::markdown')
+    $is_markdown = hiera('development_editors::install::is_markdown')
 
     if ( str2bool($is_markdown) ) {
 
