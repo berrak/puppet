@@ -2,6 +2,8 @@
 profile::git_client::bekr_gitname : 'berrak'
 profile::git_client::bekr_gitemail: 'bkronmailbox-git@yahoo.se'
 
+development_editors::install::is_markdown     : 'true'
+
 account::virtual::bekr_has_sudo      : 'true'
 account::virtual::bekr_has_ssh_access: 'true'
 
@@ -62,4 +64,4 @@ mount::service::is_nfs_consumer               : 'true'
 mount::config::dell::in_host_nfs_fstab_entries:
   - '192.168.0.10:/bekr /home/bekr/nfs nfs nfsvers=4,rsize=8192,wsize=8192,intr,clientaddr=192.168.0.10 0 0'
 
-development_editors::install::is_markdown     : 'true'
+
