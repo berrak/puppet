@@ -1,0 +1,242 @@
+#!/usr/bin/perl
+##############################################################
+# DO NOT EDIT. MANAGED BY PUPPET. CHANGES WILL BE WIPED OUT. #
+##############################################################
+#
+# /root/bin/create-kvm-box.pl
+#
+# This is a wrapper script around the 'virt-install' command.
+#
+# Usage:   # create-kvm-box.pl { wheezy | jessie }
+#
+# Purpose: Creates the initial Linux image (to be used as
+#          templates). When launched the VM boots up and manual
+#          standard console install is to be done. 
+#
+# Log:     Appends logger information to /var/log/perl.log
+#
+# Required Pre-install on host: virt-install must be installed
+#
+#
+# Steps:
+#
+#   a) Builds the command line options to 'virt-install'
+#   b) Runs the 'virt-install' command with options
+#   c) Exits
+#
+
+
+use 5.014;
+use strict;
+use warnings;
+use English;
+use File::Basename qw( basename );
+use Carp;
+
+
+#
+# CONSTANTS
+#
+
+
+our $VERSION = '0.02';
+our $FALSE = 0;
+our $OK = 0;
+our %ERROR = (
+    'argument_number_incorrect' => 1,
+    'unknown_distribution' => 2,
+    'virt_install_base_img_failed' => 3,
+    'unsupported_distribution' => 4
+);
+
+
+#
+# GLOBAL VARIABLES
+#
+
+
+our $global_logger;
+our $SCRIPT;
+our $is_global_main_error;
+
+
+#
+# MAIN PROGRAM STARTS HERE
+#
+
+
+init_pgm();
+
+my $distribution = validate_input(\@ARGV);
+
+if ( not $is_global_main_error ) {
+
+    create_kvm_distribution ( $distribution );
+
+}
+
+prepare_exit();
+
+exit ( $is_global_main_error );
+
+
+#
+#  SUBROUTINES
+#
+
+#####################################################################
+sub validate_input {
+#####################################################################
+
+    my $ref_argv = shift @_;
+    my $num_args = scalar @$ref_argv ;
+    my $linux_dist;
+
+    # Validate input
+    if ($num_args != 1) {
+        $global_logger->error("[$SCRIPT]: Wrong number of arguments ($num_args) passed to script");
+        $is_global_main_error = $ERROR{'argument_number_incorrect'};
+    } else {
+        $linux_dist = $ref_argv->[0] ;
+        
+        given ( $linux_dist ) {
+            when ( 'wheezy' ) { break }
+            when ( 'jessie' ) { break }
+            default {
+                $global_logger->error("[$SCRIPT]: Unknown linux distribution ($linux_dist)");
+                $is_global_main_error = $ERROR{'unknown_distribution'};
+            };
+        };
+    }
+
+    return( $linux_dist );
+}
+
+#####################################################################
+sub create_kvm_distribution {
+#####################################################################
+
+    my $distribution = shift;
+    my $virt_install_path = "/usr/bin/virt-install";
+    my $virt_install_args;
+    
+    # common options
+    my $name="--name $distribution";
+    my $ram="--ram 2048";
+    my $ostype="--os-type linux";
+    
+    my $size="60";
+    my $sparse="false";
+    my $diskpath="--disk /data/vm-images/$distribution.img,size=$size,sparse=$sparse";
+    
+    my $bridge="kvmbr0";
+    my $mac="52:54:00:00:00:00";
+    my $network="--network bridge=$bridge,mac=$mac,model=virtio";
+    
+    my $graphics="--graphics none";
+    my $video="--video none";
+    my $extraargs="--extra-args='console=tty0 console=ttys0,115200n8 serial'";
+    
+
+    if ( $distribution eq 'jessie' ) {
+
+        my $location="--location http://ftp.us.debian.org/debian/dists/jessie/main/installer-amd64/";
+        my $osvariant="--os-variant debianjessie";
+
+        $virt_install_args="$name $ram $location $diskpath $network $graphics $ostype $osvariant $extraargs";
+
+    } elsif ( $distribution eq 'wheezy' ) {
+
+        my $location="--location http://ftp.us.debian.org/debian/dists/wheezy/main/installer-amd64/";
+        my $osvariant="--os-variant debianwheezy";
+
+        $virt_install_args="$name $ram $location $diskpath $network $graphics $ostype $osvariant $extraargs";
+
+    } else {
+
+        $global_logger->error("Unsupported distributin/version of ($distribution)");    
+        $is_global_main_error = $ERROR{'unsupported_distribution'};
+    }
+
+    $global_logger->debug("[$SCRIPT]: Optionstring ($virt_install_args)");
+    $global_logger->debug("[$SCRIPT]: Creating base image for ($distribution)...");
+
+    if ( not $is_global_main_error ) {
+
+        if ( system ( "$virt_install_path $virt_install_args" ) ) {
+            $global_logger->error("[$SCRIPT]: $virt_install_path could not create base image for ($distribution)");
+            $is_global_main_error = $ERROR{'virt_install_base_img_failed'};
+        } else {
+            $global_logger->debug("[$SCRIPT]: $virt_install_path created base image for ($distribution)!");
+        }
+    }
+}
+
+
+#
+#  INIT- AND FINISH ROUTINES
+#
+
+#####################################################################
+sub init_pgm {
+#####################################################################
+
+    # Initilize globals
+    $SCRIPT = basename($0);
+    $is_global_main_error = $FALSE;
+
+
+    # Ensure perl logger is available (Debian/Ubuntu host)
+    our $our_log_is_available = eval
+    {
+      require Log::Log4perl;
+      Log::Log4perl->import();
+      1;
+    };
+
+
+    # This will install log4perl if missing
+    if (not $our_log_is_available) {
+        if ( system("aptitude", "-y", "install", "liblog-log4perl-perl")) {
+            croak "[$SCRIPT]: Cannot install log4perl with aptitude on Debian/Ubuntu KVM host!\n";
+        }
+    }
+
+
+    # Script must run as root
+    if ( $EFFECTIVE_USER_ID != 0 ) {
+        croak "[$SCRIPT]: Script must run as root - Aborting...";
+    }
+
+
+    # Initilize logger (output to file and to stdout)
+    my $log_conf = q(
+        log4perl.rootLogger              = DEBUG, LOG1, SCREEN
+        log4perl.appender.SCREEN         = Log::Log4perl::Appender::Screen
+        log4perl.appender.SCREEN.stderr  = 0
+        log4perl.appender.SCREEN.layout  = Log::Log4perl::Layout::PatternLayout
+        log4perl.appender.SCREEN.layout.ConversionPattern = %d %p %F %m %n
+        log4perl.appender.LOG1           = Log::Log4perl::Appender::File
+        log4perl.appender.LOG1.filename  = /var/log/perl.log
+        log4perl.appender.LOG1.mode      = append
+        log4perl.appender.LOG1.layout    = Log::Log4perl::Layout::PatternLayout
+        log4perl.appender.LOG1.layout.ConversionPattern = %d %p %F %m %n
+    );
+    Log::Log4perl::init(\$log_conf);
+    $global_logger = Log::Log4perl->get_logger();
+    $global_logger->info("[$SCRIPT]: ------------ New logger initilized ------------");
+
+}
+
+#####################################################################
+sub prepare_exit {
+#####################################################################
+
+    $global_logger->info("[$SCRIPT]: Logger closed - processing finished with exit code: $is_global_main_error");
+
+}
+
+
+#
+# END OF PROGRAM
+#
