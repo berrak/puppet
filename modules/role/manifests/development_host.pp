@@ -8,14 +8,23 @@ class role::development_host {
         before => Stage['main'],
     }
 
-    ## 2. Define boot_strap_puppet
+    ## 2a. Define 'boot_strap_puppet'
     class boot_strap_puppet {
         include profile::puppetize
     }
+    ## 2b. Define 'realize_user'
+    class realize_user {
+        include account
+        Account::Virtual <| title == 'bekr' |>
+    }
 
-    ## 3. Assign class to stage
+    ## 3. Assign classes to stage
     class { 'boot_strap_puppet' :
         stage => 'prereqs',
+    }
+    class { 'realize_user' :
+        stage   => 'prereqs',
+        require => 'boot_strap_puppet',
     }
 
     ## COMMON MODULES
@@ -44,15 +53,12 @@ class role::development_host {
     #    deb_install_list => [ 'firmware-iwlwifi', 'wicd-cli', 'wpasupplicant' ],
     #}
 
-    ## TECHNOLOGY PROFILES
+    ## USER ENVIRONMENT PROFILES (INCL. REQUIRED TECHNOLOGY)
     #include profile::perl_system_development
     #include profile::puppet_system_development
     #profile::markdown_development { 'bekr': }
 
-    ## USER ACCOUNTS
-    include account
-    Account::Virtual <| title == 'bekr' |>
-    #git_client::customize { 'bekr': }
+    #profile::git_client { 'bekr': }
 
 
 }
