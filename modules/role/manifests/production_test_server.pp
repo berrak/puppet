@@ -8,17 +8,26 @@ class role::production_test_server {
         before => Stage['main'],
     }
 
-    ## 2. Define boot_strap_puppet
+    ## 2a. Define 'boot_strap_puppet'
     class boot_strap_puppet {
         include profile::puppetize
     }
-
-    ## 3. Assign class to stage
-    class { boot_strap_puppet:
-        stage => 'prereqs',
+    ## 2b. Define 'realize_user'
+    class realize_user {
+        include account
+        Account::Virtual <| title == 'bekr' |>
     }
 
-    ## COMMON MODULES
+    ## 3. Assign classes to stage
+    class { 'boot_strap_puppet' :
+        stage => 'prereqs',
+    }
+    class { 'realize_user' :
+        stage   => 'prereqs',
+        require => Class['boot_strap_puppet'],
+    }
+
+    ## COMMON SYSTEM MODULES
     include boot_strap_puppet
     include root_bashrc
     include apt_config
@@ -27,25 +36,28 @@ class role::production_test_server {
     include mount
     include postfix
 
-    ## SECURITY
+    ## VIRTUALIZATION SYSTEM MODULES
+    #include kvm
+
+    ## SYSTEM SECURITY
     include cron_auto_upgrade
     include iptables_fail2ban
     include sudo
     include sysctl
 
-    ## MAINTENANCE
+    ## SYSTEM MAINTENANCE
     include rsyslog
     include logrotate
     include ssh_server
     include logwatch
 
-    ## TECHNOLOGY PROFILES
-    #include profile::kvm_virtual_machine_host
+    #include wifi
+    #class { 'debs::install' :
+    #    deb_install_list => [ 'firmware-iwlwifi', 'wicd-cli', 'wpasupplicant' ],
+    #}
 
-    ## USER ACCOUNTS
-    include account
-    Account::Virtual <| title == 'bekr' |>
-    #git_client::customize { 'bekr': }
+    ## USER ENVIRONMENT PROFILES (INCL. REQUIRED TECHNOLOGY)
+    profile::git_client { 'bekr': }
 
 
 }

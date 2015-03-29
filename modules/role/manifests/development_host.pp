@@ -54,11 +54,13 @@ class role::development_host {
     #}
 
     ## USER ENVIRONMENT PROFILES (INCL. REQUIRED TECHNOLOGY)
+    include development_editors
+    
     profile::git_client { 'bekr': }
-    #include profile::perl_system_development
-    #include profile::puppet_system_development
-    #profile::markdown_development { 'bekr': }
+    profile::markdown_development { 'bekr': }
 
+    #profile::perl_development { 'bekr': }
+    #profile::puppet_development { 'bekr': }
 
 
 
