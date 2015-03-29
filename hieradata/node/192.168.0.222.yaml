@@ -62,4 +62,4 @@ mount::service::is_nfs_consumer               : 'true'
 mount::config::dell::in_host_nfs_fstab_entries:
   - '192.168.0.10:/bekr /home/bekr/nfs nfs nfsvers=4,rsize=8192,wsize=8192,intr,clientaddr=192.168.0.10 0 0'
 
-
+development_editors::install::is_markdown'    : 'true' 
