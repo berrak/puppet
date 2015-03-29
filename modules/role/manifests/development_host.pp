@@ -47,11 +47,12 @@ class role::development_host {
     ## TECHNOLOGY PROFILES
     #include profile::perl_system_development
     #include profile::puppet_system_development
+    #profile::markdown_development { 'bekr': }
 
     ## USER ACCOUNTS
     include account
     Account::Virtual <| title == 'bekr' |>
-    git_client::customize { 'bekr': }
+    #git_client::customize { 'bekr': }
 
 
 }

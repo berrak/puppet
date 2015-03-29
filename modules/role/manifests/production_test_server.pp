@@ -45,7 +45,7 @@ class role::production_test_server {
     ## USER ACCOUNTS
     include account
     Account::Virtual <| title == 'bekr' |>
-    git_client::customize { 'bekr': }
+    #git_client::customize { 'bekr': }
 
 
 }
