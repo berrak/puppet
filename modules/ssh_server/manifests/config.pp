@@ -22,10 +22,4 @@ class ssh_server::config {
         require => Class['ssh_server::install'],
     }
 
-    exec { 'add_sshusers_group' :
-            command => 'groupadd sshusers',
-            path    => '/usr/bin:/usr/sbin:/bin',
-            unless  => 'cat /etc/group | grep sshusers',
-    }
-
 }
