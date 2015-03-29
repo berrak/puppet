@@ -24,7 +24,7 @@ class role::development_host {
     }
     class { 'realize_user' :
         stage   => 'prereqs',
-        require => 'boot_strap_puppet',
+        require => Class['boot_strap_puppet'],
     }
 
     ## COMMON MODULES
