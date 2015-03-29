@@ -89,7 +89,6 @@ define account::virtual ( $uid, $realname ) {
             command => "usermod -a -G sudo ${username}",
             path    => '/usr/bin:/usr/sbin:/bin',
             unless  => "cat /etc/group | grep sudo | grep ${username}",
-            require => Class['sudo'],
         }
     }
 
