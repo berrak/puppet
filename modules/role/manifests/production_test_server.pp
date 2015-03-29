@@ -37,7 +37,7 @@ class role::production_test_server {
     include postfix
 
     ## VIRTUALIZATION SYSTEM MODULES
-    #include kvm
+    include kvm
 
     ## SYSTEM SECURITY
     include cron_auto_upgrade
@@ -51,12 +51,10 @@ class role::production_test_server {
     include ssh_server
     include logwatch
 
-    #include wifi
-    #class { 'debs::install' :
-    #    deb_install_list => [ 'firmware-iwlwifi', 'wicd-cli', 'wpasupplicant' ],
-    #}
+    ## SYSTEM APPLICATIONS (INCL. THEIR REQUIRED TECHNOLOGY)
+    
 
-    ## USER ENVIRONMENT PROFILES (INCL. REQUIRED TECHNOLOGY)
+    ## USER ENVIRONMENT PROFILES (ONLY DEFINES)
     profile::git_client { 'bekr': }
 
 
