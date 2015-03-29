@@ -27,7 +27,7 @@ class role::development_host {
         require => Class['boot_strap_puppet'],
     }
 
-    ## COMMON MODULES
+    ## COMMON SYSTEM MODULES
     include boot_strap_puppet
     include root_bashrc
     include apt_config
@@ -36,13 +36,13 @@ class role::development_host {
     include mount
     include postfix
 
-    ## SECURITY
+    ## SYSTEM SECURITY
     include cron_auto_upgrade
     include iptables_fail2ban
     include sudo
     include sysctl
 
-    ## MAINTENANCE
+    ## SYSTEM MAINTENANCE
     include rsyslog
     include logrotate
     include ssh_server
@@ -54,11 +54,12 @@ class role::development_host {
     #}
 
     ## USER ENVIRONMENT PROFILES (INCL. REQUIRED TECHNOLOGY)
+    profile::git_client { 'bekr': }
     #include profile::perl_system_development
     #include profile::puppet_system_development
     #profile::markdown_development { 'bekr': }
 
-    #profile::git_client { 'bekr': }
+
 
 
 }
