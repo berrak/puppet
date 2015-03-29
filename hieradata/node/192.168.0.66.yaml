@@ -1,6 +1,6 @@
 ---
-git_client::customize::bekr_gitname : 'berrak'
-git_client::customize::bekr_gitemail: 'bkronmailbox-git@yahoo.se'
+profile::git_client::bekr_gitname : 'berrak'
+profile::bekr_gitemail: 'bkronmailbox-git@yahoo.se'
 
 account::virtual::bekr_has_sudo      : 'true'
 account::virtual::bekr_has_ssh_access: 'true'
