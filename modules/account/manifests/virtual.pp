@@ -7,12 +7,6 @@ define account::virtual ( $uid, $realname ) {
     $username = $title
 
     include stdlib
-    include sudo
-    include ssh_server
-
-    ## HIERA lookup
-    $has_sudo       = hiera( "account::virtual::${username}_has_sudo" )
-    $has_ssh_access = hiera( "account::virtual::${username}_has_ssh_access" )
 
     user { $username:
         ensure     => present,
@@ -28,6 +22,8 @@ define account::virtual ( $uid, $realname ) {
     group { $username:
         gid => $uid,
     }
+
+    ## DIRECTORIES IN USER HOME
 
     file { "/home/${username}":
         ensure  => directory,
@@ -59,6 +55,19 @@ define account::virtual ( $uid, $realname ) {
         require => File["/home/${username}"],
     }
 
+    # Always create local user nfs directory to mount
+    # NFSv4 share, in case it will be required later.
+
+    file { "/home/${username}/nfs":
+        ensure  => directory,
+        owner   => $username,
+        group   => $username,
+        mode    => '0755',
+        require => File["/home/${username}"],
+    }
+
+    ## USER BASH-CUSTOMIZATION
+
     # Local .bashrc sub directory for bashrc snippets 
     file { "/home/${username}/bashrc.d":
         ensure  => directory,
@@ -81,6 +90,16 @@ define account::virtual ( $uid, $realname ) {
         group   => $username,
         require => File["/home/${username}/bashrc.d"],
     }
+
+
+    ## GROUP-USER ROLE EMPOWERMENTS VIA HIERA BOOLEANS
+
+    include sudo
+    include ssh_server
+
+    ## HIERA lookup
+    $has_sudo       = hiera( "account::virtual::${username}_has_sudo" )
+    $has_ssh_access = hiera( "account::virtual::${username}_has_ssh_access" )
 
     # Add sudo power to this user - if in group 'sudo'
     if ( str2bool($has_sudo) ) {
@@ -107,17 +126,6 @@ define account::virtual ( $uid, $realname ) {
             unless  => "cat /etc/group | grep sshusers | grep ${username}",
             require => Exec['add_sshusers_group'],
         }
-    }
-
-    # Always create local user nfs directory to mount
-    # NFSv4 share, in case it will be required later.
-
-    file { "/home/${username}/nfs":
-        ensure  => directory,
-        owner   => $username,
-        group   => $username,
-        mode    => '0755',
-        require => File["/home/${username}"],
     }
 
 }
