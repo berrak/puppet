@@ -40,7 +40,7 @@ class puppet_bootstrap::install {
     ##
     if $::ipaddress == $::puppet_bootstrap::params::home_puppet_server_ip {
         class { puppet_server::config :
-            server_fqdn => "puppet.$::puppet_bootstrap::params::home_network_domain",
+            server_fqdn => "puppet.${::puppet_bootstrap::params::home_network_domain}",
             server_ip   => $::puppet_bootstrap::params::home_puppet_server_ip,
         }
         include hieradata
@@ -48,7 +48,7 @@ class puppet_bootstrap::install {
     }
     elsif $::ipaddress == $::public1_bootstrap::params::public1_puppet_server_ip {
         class { puppet_server::config :
-            server_fqdn => "puppet.$::public1_bootstrap::params::public1_network_domain",
+            server_fqdn => "puppet.${::public1_bootstrap::params::public1_network_domain}",
             server_ip   => $::public1_bootstrap::params::public1_puppet_server_ip,
         }
         include hieradata
