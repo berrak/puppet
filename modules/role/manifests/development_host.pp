@@ -10,7 +10,7 @@ class role::development_host {
 
     ## 2a. Define 'boot_strap_puppet'
     class boot_strap_puppet {
-        include profile::puppetize
+        include puppet_bootstrap
     }
     ## 2b. Define 'realize_user'
     class realize_user {
