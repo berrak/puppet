@@ -1,11 +1,11 @@
 ---
 host::config::home.tld::in_domain_servers:
-  - '192.168.0.10   shire.home.tld    shire'
-  - '192.168.0.254  asgard.home.tld   asgard'
-  - '192.168.0.100  mordor.home.tld   mordor'
-  - '192.168.0.12   hphome.home.tld   hphome'
-  - '192.168.0.111  dl380g7.home.tld  dl380g7'
-  - '192.168.0.222  dell.home.tld  dell'
+  - '192.168.0.10    shire.home.tld           shire'
+  - '192.168.0.254   asgard.home.tld          asgard'
+  - '192.168.0.100   mordor.home.tld          mordor'
+  - '192.168.0.12    hphome.home.tld          hphome'
+  - '176.10.168.227  dl380g7.triatagroup.com  dl380g7'
+  - '192.168.0.222   dell.home.tld            dell'
 
 ntp::config::public_ntp_servers:
   -  'server 0.se.pool.ntp.org iburst'

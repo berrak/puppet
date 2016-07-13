@@ -15,3 +15,9 @@ node 'hp.home.tld' {
 
 }
 
+node 'dl380g7.triatagroup.com' {
+    
+    ## Main ROLE of this host
+    include role::production_server
+
+}
