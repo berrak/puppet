@@ -24,14 +24,15 @@ define hosts::agent ( $puppet_server_ip, $network_domain ) {
         $smtp_hostname         = hiera('host::config::smtp_hostname')
     
         ## Add all other ip/hosts in this domain
-        $in_domain_servers     = hiera("host::config::${::domain}::in_domain_servers")
-
-        file { '/etc/hosts' :
-            content => template( 'hosts/agent.hosts.erb' ),
-            owner   => 'root',
-            group   => 'root',
-            mode    => '0644',
-        }
+        
+        ## Prevents complains of hiera-data (fix later)
+        #$in_domain_servers     = hiera("host::config::${::domain}::in_domain_servers")
+        #file { '/etc/hosts' :
+        #    content => template( 'hosts/agent.hosts.erb' ),
+        #    owner   => 'root',
+        #    group   => 'root',
+        #    mode    => '0644',
+        # }
     } else {
         notify { "Puppet agent (${name}) hosts file is already configured as Puppet server - skipping...": loglevel => info }
     }
